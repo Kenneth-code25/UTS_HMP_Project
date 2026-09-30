@@ -27,22 +27,30 @@
       </ion-header>
       <ion-content class="ion-padding">
         <ion-list>
+          <ion-menu-toggle>
           <ion-item routerLink="/dashboard">
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-label>Dashboard</ion-label>
           </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
           <ion-item routerLink="/produk">
             <ion-icon name="list" slot="start"></ion-icon>
             <ion-label>Produk</ion-label>
           </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
           <ion-item routerLink="/transaksi">
             <ion-icon name="receipt-outline" slot="start"></ion-icon>
             <ion-label>Transaksi</ion-label>
           </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
           <ion-item routerLink="/profile">
             <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-label>Profile</ion-label>
           </ion-item>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
