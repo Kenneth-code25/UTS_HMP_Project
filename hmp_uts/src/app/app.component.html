@@ -1,5 +1,25 @@
 <ion-app>
   <ion-router-outlet>
-    
+    <ion-router-outlet></ion-router-outlet>
+
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="home">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="about">
+          <ion-icon name="help-circle-outline"></ion-icon>
+          <ion-label>About</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="logout">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>Logout</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+
   </ion-router-outlet>
 </ion-app>
