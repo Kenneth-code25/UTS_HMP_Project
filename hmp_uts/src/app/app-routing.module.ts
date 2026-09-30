@@ -22,7 +22,11 @@ const routes: Routes = [
     {
     path: 'transaksi',
     loadChildren: () => import('./transaksi/transaksi.module').then( m => m.TransaksiPageModule)
+  },  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
+
 ];
 
 @NgModule({
