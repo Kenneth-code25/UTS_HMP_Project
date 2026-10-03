@@ -35,7 +35,10 @@ const routes: Routes = [
     path: 'produkdetail/:index',
     loadChildren: () => import('./produkdetail/produkdetail.module').then( m => m.ProdukdetailPageModule)
   },
-
+  {
+    path: 'setting',
+    loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
+  }
 ];
 
 @NgModule({
