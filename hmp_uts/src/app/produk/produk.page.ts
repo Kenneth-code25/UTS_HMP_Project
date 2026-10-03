@@ -23,6 +23,4 @@ chunkArray(arr: any[], chunkSize: number): any[][] {
   }
   return result;
 }
-
-
 }

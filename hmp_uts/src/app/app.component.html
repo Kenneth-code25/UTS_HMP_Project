@@ -11,13 +11,13 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/dashboard">
+          <ion-item routerLink="/dashboard" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
             <ion-icon name="home-outline" slot="start"></ion-icon>
             <ion-label>Dashboard</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
-        <ion-accordion-group>
+        <ion-accordion-group #menuAccordion>
           <ion-accordion value="produk">
             <ion-item slot="header">
               <ion-icon name="list-outline" slot="start"></ion-icon>
@@ -26,21 +26,21 @@
 
             <div slot="content">
                <ion-menu-toggle auto-hide="false">
-                <ion-item routerLink="/produk">
+                <ion-item routerLink="/produk" routerLinkActive="menu-aktif">
                    <ion-icon name="bag" slot="start"></ion-icon>
                   <ion-label>Daftar Produk</ion-label>
                 </ion-item>
             </ion-menu-toggle>
 
             <ion-menu-toggle auto-hide="false">
-                <ion-item routerLink="/produk">
+                <ion-item routerLink="/tambahproduk" routerLinkActive="menu-aktif">
                    <ion-icon name="add-circle" slot="start"></ion-icon>
                   <ion-label>Tambah Produk</ion-label>
                 </ion-item>
             </ion-menu-toggle>
 
             <ion-menu-toggle auto-hide="false">
-                <ion-item routerLink="/produk">
+                <ion-item routerLink="/editproduk" routerLinkActive="menu-aktif">
                    <ion-icon name="create" slot="start"></ion-icon>
                   <ion-label>Edit Produk</ion-label>
                 </ion-item>
@@ -51,13 +51,13 @@
 
 
         <ion-menu-toggle>
-          <ion-item routerLink="/transaksi">
+          <ion-item routerLink="/transaksi" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
             <ion-icon name="receipt-outline" slot="start"></ion-icon>
             <ion-label>Transaksi</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item routerLink="/profile">
+          <ion-item routerLink="/profile" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
             <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-label>Profile</ion-label>
           </ion-item>

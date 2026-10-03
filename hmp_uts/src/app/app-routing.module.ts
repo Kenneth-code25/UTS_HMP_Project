@@ -38,7 +38,15 @@ const routes: Routes = [
   {
     path: 'setting',
     loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
+  },  {
+    path: 'tambahproduk',
+    loadChildren: () => import('./tambahproduk/tambahproduk.module').then( m => m.TambahprodukPageModule)
+  },
+  {
+    path: 'editproduk',
+    loadChildren: () => import('./editproduk/editproduk.module').then( m => m.EditprodukPageModule)
   }
+
 ];
 
 @NgModule({
