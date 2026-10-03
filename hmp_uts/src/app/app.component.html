@@ -1,4 +1,6 @@
 <ion-app>
+  <!-- sidebar -->
+  <ion-router-outlet id="main-content"></ion-router-outlet>
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
@@ -8,54 +10,76 @@
 
     <ion-content class="ion-padding">
       <ion-list>
-
         <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/dashboard" routerDirection="root">
-            <ion-icon name="home" slot="start"></ion-icon>
+          <ion-item routerLink="/dashboard">
+            <ion-icon name="home-outline" slot="start"></ion-icon>
             <ion-label>Dashboard</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
         <ion-accordion-group>
           <ion-accordion value="produk">
-            <!-- header jangan dibungkus menu-toggle -->
             <ion-item slot="header">
-              <ion-icon name="cube-outline" slot="start"></ion-icon>
+              <ion-icon name="list-outline" slot="start"></ion-icon>
               <ion-label>Produk</ion-label>
             </ion-item>
 
             <div slot="content">
-              <ion-menu-toggle auto-hide="false">
-                <ion-item routerLink="/tambah-produk" routerDirection="root" lines="none" style="padding-left: 20px;">
-                  <ion-label>Tambah Produk</ion-label>
-                </ion-item>
-              </ion-menu-toggle>
-              <ion-menu-toggle auto-hide="false">
-                <ion-item routerLink="/daftar-produk" routerDirection="root" lines="none" style="padding-left: 20px;">
+               <ion-menu-toggle auto-hide="false">
+                <ion-item routerLink="/produk">
+                   <ion-icon name="bag" slot="start"></ion-icon>
                   <ion-label>Daftar Produk</ion-label>
                 </ion-item>
-              </ion-menu-toggle>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false">
+                <ion-item routerLink="/produk">
+                   <ion-icon name="add-circle" slot="start"></ion-icon>
+                  <ion-label>Tambah Produk</ion-label>
+                </ion-item>
+            </ion-menu-toggle>
             </div>
           </ion-accordion>
         </ion-accordion-group>
 
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/transaksi" routerDirection="root">
+
+        <ion-menu-toggle>
+          <ion-item routerLink="/transaksi">
             <ion-icon name="receipt-outline" slot="start"></ion-icon>
             <ion-label>Transaksi</ion-label>
           </ion-item>
         </ion-menu-toggle>
-
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/profile" routerDirection="root">
+        <ion-menu-toggle>
+          <ion-item routerLink="/profile">
             <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-label>Profile</ion-label>
           </ion-item>
         </ion-menu-toggle>
-
       </ion-list>
     </ion-content>
   </ion-menu>
 
+  <!-- bagian bawah (tabs) -->
   <ion-router-outlet id="main-content"></ion-router-outlet>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+
+      <ion-tab-button tab="home">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="about">
+        <ion-icon name="help-circle-outline"></ion-icon>
+        <ion-label>About</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="setting">
+        <ion-icon name="settings"></ion-icon>
+        <ion-label>Settings</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
+
 </ion-app>
