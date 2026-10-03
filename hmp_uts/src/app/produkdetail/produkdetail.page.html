@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detail Produk</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/produk"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">produkdetail</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item>
+      <ion-img *ngIf="produks.url" [src]="produks.url" ></ion-img>
+      <ion-img *ngIf="!produks.url" [src]="defaultImageUrl"></ion-img>
+    </ion-item>
+    <ion-item>
+      {{ produks.name }}
+    </ion-item>
+    <ion-item>
+      {{ produks.description }}
+    </ion-item>
+    <ion-item>
+      Harga Beli : {{ produks.hargabeli }}
+    </ion-item>
+    <ion-item>
+      Harga Jual : {{ produks.hargajual }}
+    </ion-item>
+    <ion-item>
+      Stok : {{ produks.stok }}
+    </ion-item>
+  </ion-list>
+
+</ion-content>
