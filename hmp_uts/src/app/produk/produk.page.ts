@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Products } from '../products';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-produk',
   templateUrl: './produk.page.html',
@@ -12,9 +13,9 @@ export class ProdukPage implements OnInit {
   defaultImageUrl = this.products.urldefault;; // URL gambar default
   chunkedProduct: any[][] = [];
 
-  constructor(private products: Products) {
+  constructor(private products: Products, private router:Router) {
   }
-  
+
   ngOnInit() {
     this.muatArray();
   }
@@ -40,5 +41,9 @@ export class ProdukPage implements OnInit {
       result.push(arr.slice(i, i + chunkSize));
     }
     return result;
+  }
+
+  cekKeranjang() {
+    this.router.navigate(['/keranjang']);
   }
 }

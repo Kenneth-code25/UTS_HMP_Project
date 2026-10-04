@@ -7,11 +7,17 @@
 
     <ion-searchbar class="search-produk" slot="end"></ion-searchbar>
     
-    <ion-button size="small" slot="end" fill="clear">
+    <ion-button id="btnChat"size="small" slot="end" fill="clear">
       <ion-icon name="chatbubble-ellipses-outline" ></ion-icon>
+      <ion-alert
+        trigger="btnChat"
+        header="Fitur Chat"
+        message="Chat dengan Gemini/Claude aja, ngapain butuh fitur ini"
+        [buttons]="['OK']">
+      </ion-alert>
     </ion-button>
 
-    <ion-button size="small" slot="end" fill="clear">
+    <ion-button size="small" slot="end" fill="clear" (click)="cekKeranjang()">
       <ion-icon name="cart-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
