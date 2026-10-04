@@ -50,7 +50,11 @@ const routes: Routes = [
   {
     path: 'formedit/:index',
     loadChildren: () => import('./formedit/formedit.module').then( m => m.FormeditPageModule)
+  },  {
+    path: 'keranjang',
+    loadChildren: () => import('./keranjang/keranjang.module').then( m => m.KeranjangPageModule)
   }
+
 
 ];
 

@@ -49,7 +49,12 @@
           </ion-accordion>
         </ion-accordion-group>
 
-
+        <ion-menu-toggle>
+          <ion-item routerLink="/keranjang" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
+            <ion-icon name="cart-outline" slot="start"></ion-icon>
+            <ion-label>Keranjang</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
         <ion-menu-toggle>
           <ion-item routerLink="/transaksi" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
             <ion-icon name="receipt-outline" slot="start"></ion-icon>
