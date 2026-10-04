@@ -1,6 +1,7 @@
 import { Service } from '@angular/core';
 
 @Service()
+
 export class Products {
   urldefault = "https://media.istockphoto.com/id/2251833117/photo/negative-feedback-and-customer-dissatisfaction-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=VN6cx0cRGoRICP7oY0VjCCbRRnlDyOLShX9V0KIHuzk=";
   produk = [
@@ -79,6 +80,8 @@ export class Products {
   ];
 
   tambahproduk(p_name:string, p_url:string, p_description:string, p_hargabeli:number, p_hargajual:number, p_stok:number){
-    this.produk.push({name:p_name,url:p_url,description:p_description, hargabeli:p_hargabeli, hargajual:p_hargajual, stok:p_stok})
+    this.produk.push({name:p_name, url:p_url, description:p_description, hargabeli:p_hargabeli, hargajual:p_hargajual, stok:p_stok})
+    console.log("=== CEK SERVICE: Data Berhasil Di-push ===");
+    console.table(this.produk);
   }
 }

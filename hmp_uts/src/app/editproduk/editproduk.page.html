@@ -10,7 +10,29 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">editproduk</ion-title>
+      <ion-title size="large">Edit Produk</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-grid>
+    <ion-row *ngFor="let produk2 of chunkArray(arrProduk,2); let i = index">
+      <ion-col size="6" *ngFor="let produk of produk2; let i2 = index">
+        <ion-list>
+          <ion-item>
+            <ion-img class="gambar-produk" *ngIf="produk.url" [src]="produk.url"></ion-img>
+            <ion-img class="gambar-produk" *ngIf="!produk.url" [src]="defaultImageUrl"></ion-img>
+          </ion-item>
+          <ion-item>
+            {{produk.name}}
+
+            <ion-button class="btn-edit" slot="end" size="small" shape="round" fill="outline" 
+                        [routerLink]="['/formedit', arrProduk.indexOf(produk)]">
+              <ion-icon class="icon-btn-edit" name="pencil-sharp"></ion-icon>
+                Edit
+            </ion-button>
+
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -28,7 +28,12 @@ export class TambahprodukPage implements OnInit {
   constructor(private products:Products, private router:Router) { }
 
   ngOnInit() {
-    this.arr_sellPrice = this.generateNumberOptions(5000,100000,5000)
+    this.arr_sellPrice = this.generateNumberOptions(5000,100000,5000);
+  }
+
+  addproduk() {
+    this.products.tambahproduk(this.add_name,this.add_url,this.add_desc,this.add_buyPrice,this.add_sellPrice,this.add_stok);
+    this.router.navigate(['/produk']);
   }
 
   generateNumberOptions(start:number,end:number,step:number):number[]{
@@ -47,11 +52,6 @@ export class TambahprodukPage implements OnInit {
   remove() {
     this.add_stok--;
     if(this.add_stok==0) this.isStokNegatif=true;
-  }
-
-  addproduk() {
-    this.products.tambahproduk(this.add_name,this.add_url,this.add_desc,this.add_buyPrice,this.add_sellPrice,this.add_stok)
-    this.router.navigate(['/produk']);
   }
 
   cekHargaBeli() {
