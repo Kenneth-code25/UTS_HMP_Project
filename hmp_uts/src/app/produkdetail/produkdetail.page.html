@@ -20,10 +20,13 @@
       <ion-img *ngIf="!produks.url" [src]="defaultImageUrl"></ion-img>
     </ion-item>
     <ion-item>
-      {{ produks.name }}
+      Nama : {{ produks.name }}
     </ion-item>
     <ion-item>
-      {{ produks.description }}
+      Kategori : {{ produks.kategori }}
+    </ion-item>
+    <ion-item>
+      Deskripsi : {{ produks.description }}
     </ion-item>
     <ion-item>
       Harga Beli : {{ produks.hargabeli }}
@@ -34,11 +37,8 @@
     <ion-item>
       Stok : {{ produks.stok }}
     </ion-item>
-    <ion-item>
-      Kategori : {{ produks.kategori }}
-    </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="produks.stok>0">
       <ion-text>
         Amount
       </ion-text>

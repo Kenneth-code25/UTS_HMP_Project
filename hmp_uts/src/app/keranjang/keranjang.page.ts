@@ -11,20 +11,20 @@ import { ChangeDetectorRef } from '@angular/core';
 export class KeranjangPage implements OnInit {
 
   constructor(private keranjang: Keranjang, private cdr: ChangeDetectorRef) { }
-arrayKeranjang: any[] = [];
+  arrayKeranjang: any[] = [];
   ngOnInit() {
   }
-ionViewWillEnter() {
+  ionViewWillEnter() {
     const dataDariService = this.keranjang.getKeranjang();
     console.log("👉 CCTV 2: Halaman Keranjang Berhasil Dibuka!");
-  
+
     console.log("👉 CCTV 3: Data yang ditangkap:", dataDariService);
-  
-  if (dataDariService) {
-    this.arrayKeranjang = [...dataDariService];
-  } else {
-    this.arrayKeranjang = [];
-  }
-  this.cdr.detectChanges();
+
+    if (dataDariService) {
+      this.arrayKeranjang = [...dataDariService];
+    } else {
+      this.arrayKeranjang = [];
+    }
+    this.cdr.detectChanges();
   }
 }

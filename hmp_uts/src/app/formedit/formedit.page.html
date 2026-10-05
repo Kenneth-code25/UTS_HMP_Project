@@ -16,50 +16,108 @@
 
   <ion-list>
     <ion-item>
-      <ion-img *ngIf="produks.url" [src]="produks.url" ></ion-img>
+      <ion-img *ngIf="produks.url" [src]="produks.url"></ion-img>
       <ion-img *ngIf="!produks.url" [src]="defaultImageUrl"></ion-img>
-      <ion-button size="large" fill="clear" slot="end" (click)="bisaDiEdit('url')">
-          <ion-icon slot="icon-only" [name]="editing['url'] ? 'checkmark' : 'pencil'"></ion-icon>
+      <ion-button *ngIf="!editing['url']" size="large" fill="clear" slot="end" (click)="bisaDiEdit('url')">
+        <ion-icon slot="icon-only" name='pencil'></ion-icon>
       </ion-button>
+       <div slot="end" *ngIf="editing['url']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('url')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('url')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
 
-    <ion-item *ngIf="editing['url']">  
-      <ion-input label="Masukkan URL Gambar" labelPlacement="stacked" type="url" 
-                placeholder="https://..." [(ngModel)]="produks.url" ></ion-input>
+    <ion-item *ngIf="editing['url']">
+      <ion-input label="Masukkan URL Gambar" labelPlacement="stacked" type="url" placeholder="https://..."
+        [(ngModel)]="produks.url"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input  label="Nama Produk" labelPlacement="stacked"
-          [(ngModel)]="produks.name" [disabled]="!editing['name']"></ion-input>
-      <ion-button size="default" fill="clear" slot="end" (click)="bisaDiEdit('name')">
-          <ion-icon slot="icon-only" [name]="editing['name'] ? 'checkmark' : 'pencil'"></ion-icon>
+      <ion-input label="Nama Produk" labelPlacement="stacked" [(ngModel)]="produks.name"
+        [disabled]="!editing['name']"></ion-input>
+      <ion-button *ngIf="!editing['name']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('name')">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>
+
+      <div slot="end" *ngIf="editing['name']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('name')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('name')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
 
     <ion-item>
-      <ion-textarea  label="Deskripsi Produk" labelPlacement="stacked" 
-          [(ngModel)]="produks.description" [disabled]="!editing['description']" [autoGrow]="true"></ion-textarea>
-      <ion-button size="default" fill="clear" slot="end" (click)="bisaDiEdit('description')">
-          <ion-icon slot="icon-only" [name]="editing['description'] ? 'checkmark' : 'pencil'"></ion-icon>
+      <ion-input label="Kategori Produk" labelPlacement="stacked" [(ngModel)]="produks.kategori"
+        [disabled]="!editing['kategori']"></ion-input>
+      <ion-button *ngIf="!editing['kategori']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('kategori')">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>
+
+      <div slot="end" *ngIf="editing['kategori']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('kategori')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('kategori')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
 
     <ion-item>
-      <ion-input type="number" label="Harga Beli" labelPlacement="stacked"
-        [(ngModel)]="produks.hargabeli" min="0" max="100000" [disabled]="!editing['hargabeli']"></ion-input>
-      <ion-button size="default" fill="clear" slot="end" (click)="bisaDiEdit('hargabeli')">
-          <ion-icon slot="icon-only" [name]="editing['hargabeli'] ? 'checkmark' : 'pencil'"></ion-icon>
+      <ion-textarea label="Deskripsi Produk" labelPlacement="stacked" [(ngModel)]="produks.description"
+        [disabled]="!editing['description']" [autoGrow]="true"></ion-textarea>
+      <ion-button  *ngIf="!editing['description']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('description')">
+        <ion-icon slot="icon-only" name='pencil'></ion-icon>
       </ion-button>
+       <div slot="end" *ngIf="editing['description']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('description')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('description')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
 
     <ion-item>
-      <ion-select label="Harga Jual" labelPlacement="stacked"
-        [(ngModel)]="produks.hargajual" [disabled]="!editing['hargajual']">
+      <ion-input type="number" label="Harga Beli" labelPlacement="stacked" [(ngModel)]="produks.hargabeli" min="0"
+        max="100000" step="5000" [disabled]="!editing['hargabeli']"></ion-input>
+      <ion-button *ngIf="!editing['hargabeli']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('hargabeli')">
+        <ion-icon slot="icon-only" name = 'pencil'></ion-icon>
+      </ion-button>
+      <div slot="end" *ngIf="editing['hargabeli']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('hargabeli')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('hargabeli')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Harga Jual" labelPlacement="stacked" [(ngModel)]="produks.hargajual"
+        [disabled]="!editing['hargajual']">
         <ion-select-option *ngFor="let hargaJual of arr_sellPrice" [value]="hargaJual">{{hargaJual}}</ion-select-option>
       </ion-select>
-      <ion-button size="default" fill="clear" slot="end" (click)="bisaDiEdit('hargajual')">
-          <ion-icon slot="icon-only" [name]="editing['hargajual'] ? 'checkmark' : 'pencil'"></ion-icon>
+      <ion-button *ngIf="!editing['hargajual']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('hargajual')">
+        <ion-icon slot="icon-only" name='pencil'></ion-icon>
       </ion-button>
+      <div slot="end" *ngIf="editing['hargajual']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('hargajual')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('hargajual')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
 
     <ion-item>
@@ -71,9 +129,17 @@
       <ion-button size="small" (click)="add()" [disabled]="!editing['stok']">
         <ion-icon name="chevron-up-outline"></ion-icon>
       </ion-button>
-      <ion-button size="default" fill="clear" slot="end" (click)="bisaDiEdit('stok')">
-          <ion-icon slot="icon-only" [name]="editing['stok'] ? 'checkmark' : 'pencil'"></ion-icon>
+      <ion-button *ngIf="!editing['stok']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('stok')">
+        <ion-icon slot="icon-only" name = 'pencil'></ion-icon>
       </ion-button>
+      <div slot="end" *ngIf="editing['stok']">
+        <ion-button size="default" fill="clear" color="danger" (click)="batalEdit('stok')">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button size="default" fill="clear" color="success" (click)="simpanEdit('stok')">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

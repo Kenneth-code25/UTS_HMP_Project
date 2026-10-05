@@ -73,7 +73,7 @@ export class Products {
       url: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=850&h=500&fit=crop",
       description: "Stainless steel dining knife with a simple and durable design.",
       hargabeli: 10000,
-      hargajual: 18000,
+      hargajual: 20000,
       kategori: "Peralatan Makan",
       stok: 5
     },
@@ -82,14 +82,23 @@ export class Products {
       url: "",
       description: "Complete cutlery set containing essential utensils for everyday dining.",
       hargabeli: 45000,
-      hargajual: 70000,
+      hargajual: 80000,
       kategori: "Peralatan Makan",
       stok: 10
     },
+    {
+      name: "WIRELESS ERGONOMIC MOUSE",
+      url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=850&h=500&fit=crop",
+      description: "Ergonomic wireless mouse with smooth tracking and comfortable grip for daily office work.",
+      hargabeli: 45000,
+      hargajual: 75000,
+      kategori: "Elektronik",
+      stok: 0 
+    },
   ];
 
-  tambahproduk(p_name:string, p_url:string, p_description:string, p_hargabeli:number, p_hargajual:number, p_stok:number, p_kategori:string){
-    this.produk.push({name:p_name, url:p_url, description:p_description, hargabeli:p_hargabeli, hargajual:p_hargajual, stok:p_stok, kategori:p_kategori});
+  tambahproduk(p_name: string, p_kategori: string, p_url: string, p_description: string, p_hargabeli: number, p_hargajual: number, p_stok: number) {
+    this.produk.push({ name: p_name, kategori: p_kategori, url: p_url, description: p_description, hargabeli: p_hargabeli, hargajual: p_hargajual, stok: p_stok });
     console.log("=== CEK SERVICE: Data Berhasil Di-push ===");
     console.table(this.produk);
   }

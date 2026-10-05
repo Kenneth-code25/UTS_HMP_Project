@@ -9,170 +9,169 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class TambahprodukPage implements OnInit {
-  add_name:string = "";
-  add_url:string = "";
-  add_desc:string = "";
-  add_buyPrice:number = 0;
+  add_name: string = "";
+  add_kategori: string = "";
+  add_url: string = "";
+  add_desc: string = "";
+  add_buyPrice: number = 0;
 
-  arr_sellPrice:number[]=[];
-  add_sellPrice:number=0;
-  add_stok:number = 0;
-  add_kategori:string = ""; 
+  arr_sellPrice: number[] = [];
+  add_sellPrice: number = 0;
+  add_stok: number = 0;
+
 
   //variabel buat pengecekan
-  isStokNegatif:boolean=true;
-  isAlertTrigger:boolean=false;
-  alertHeader:string='';
-  alertMessage:string='';
-  public alertButtons:any = ['OK'];
+  isStokNegatif: boolean = true;
+  err_name: string = "";
+  err_kategori: string = "";
+  err_url: string = "";
+  err_desc: string = "";
+  err_hargabeli: string = "";
+  err_hargajual: string = "";
 
-  constructor(private products:Products, private router:Router) { }
+  alertHeader: string = "";
+  alertMessage: string = "";
+  public alertButtons: any = ['OK'];
+  isAlertOpen = false;
+  isSuccessAlert = false;
+
+  constructor(private products: Products, private router: Router) { }
 
   ngOnInit() {
-    this.arr_sellPrice = this.generateNumberOptions(5000,100000,5000);
+    this.arr_sellPrice = this.generateNumberOptions(5000, 100000, 5000);
   }
 
   addproduk() {
-    this.products.tambahproduk(this.add_name,this.add_url,this.add_desc,this.add_buyPrice,this.add_sellPrice,this.add_stok,this.add_kategori);
+    this.products.tambahproduk(this.add_name, this.add_kategori, this.add_url, this.add_desc, this.add_buyPrice, this.add_sellPrice, this.add_stok);
     this.router.navigate(['/produk']);
   }
 
-  generateNumberOptions(start:number,end:number,step:number):number[]{
-    const options:number[]=[];
-    for(let i = start; i<=end; i+=step){
+  generateNumberOptions(start: number, end: number, step: number): number[] {
+    const options: number[] = [];
+    for (let i = start; i <= end; i += step) {
       options.push(i);
     }
     return options;
   }
-  
+
   add() {
     this.add_stok++;
-    if(this.add_stok>0) this.isStokNegatif=false;
+    if (this.add_stok > 0) this.isStokNegatif = false;
   }
 
   remove() {
     this.add_stok--;
-    if(this.add_stok==0) this.isStokNegatif=true;
+    if (this.add_stok == 0) this.isStokNegatif = true;
   }
 
-  cekHargaBeli() {
-    if(this.add_buyPrice<0){
-      this.isAlertTrigger=true;
-      this.alertHeader="Harga Beli NEGATIF";
-      this.alertMessage="Harga Beli TIDAK BOLEH NEGATIF";
-      this.add_buyPrice=0;
-    }
-    else if(this.add_buyPrice>100000){
-      this.isAlertTrigger=true;
-      this.alertHeader="Harga Beli KEMAHALAN";
-      this.alertMessage="Harga Beli TIDAK BOLEH LEBIH DARI 100rb";
-      this.add_buyPrice=100000;
-    }
-  }
 
   cekNama() {
     if (!this.add_name || this.add_name.trim() === '') {
-      this.isAlertTrigger=true;
-      this.alertHeader="Nama Produk KOSONG";
-      this.alertMessage="Nama Produk WAJIB DIISI";
-    } 
+      this.err_name = "Nama tidak boleh kosong";
+    }
+    else {
+      this.err_name = "";
+    }
+  }
+
+  cekKategori() {
+    if (!this.add_kategori || this.add_kategori.trim() === '') {
+      this.err_kategori = "Kategori tidak boleh kosong";
+    }
+    else {
+      this.err_kategori = "";
+    }
   }
 
   cekDeskripsi() {
     if (!this.add_desc || this.add_desc.trim() === '') {
-      this.isAlertTrigger=true;
-      this.alertHeader="Deskripsi Produk KOSONG";
-      this.alertMessage="Deskripsi Produk WAJIB DIISI";
-    } 
+      this.err_desc = "Deskripsi tidak boleh kosong";
+    }
+    else {
+      this.err_desc = "";
+    }
   }
 
   cekFormatUrl() {
     if (!this.add_url || this.add_url.trim() === '') {
-      this.isAlertTrigger=true;
-      this.alertHeader="Image URL KOSONG";
-      this.alertMessage="Image URL WAJIB DIISI";
+      this.err_url = "URL Gambar tidak boleh kosong";
       return;
     }
     try {
       new URL(this.add_url);
+      this.err_url = "";
     } catch (e) {
-      
-      this.alertHeader='Format URL SALAH';
-      this.alertMessage='Format URL Salah', 'Pastikan link diawali dengan http:// atau https:// ya!';
-      this.isAlertTrigger=true;
-      this.add_url = '';
+      this.err_url = "Format URL salah, harus dimulai dengan http atau https";
+    }
+  }
+
+  cekHargaBeli() {
+    if (this.add_buyPrice < 0) {
+      this.err_hargabeli = "Harga tidak boleh Negatif";
+      this.add_buyPrice = 0;
+    }
+    else if (this.add_buyPrice > 100000) {
+      this.err_hargabeli = "Harga tidak boleh lebih dr 100rb";
+      this.add_buyPrice = 100000;
+    }
+    else {
+      this.err_hargabeli = "";
+    }
+  }
+
+  cekHargaJual() {
+    if (!this.add_sellPrice) {
+      this.err_hargajual = "Harga jual harus dipilih";
+    } else {
+      this.err_hargajual = "";
     }
   }
 
   cekSubmit() {
-    // 1. Cek Nama Produk
-    if (!this.add_name || this.add_name.trim() === '') {
-      this.alertHeader = "Nama Produk KOSONG";
-      this.alertMessage = "Nama Produk WAJIB DIISI";
-      this.isAlertTrigger = true;
-      return;
-    } 
+    this.cekNama();
+    this.cekKategori();
+    this.cekDeskripsi();
+    this.cekFormatUrl();
+    this.cekHargaBeli();
+    this.cekHargaJual();
 
-    // 2. Cek Deskripsi
-    if (!this.add_desc || this.add_desc.trim() === '') {
-      this.alertHeader = "Deskripsi Produk KOSONG";
-      this.alertMessage = "Deskripsi Produk WAJIB DIISI";
-      this.isAlertTrigger = true;
-      return; 
-    } 
+    const adaError = this.err_name || this.err_kategori || this.err_desc || this.err_url || this.err_hargabeli || this.err_hargajual;
 
-    // 3. Cek Harga Beli
-    if (this.add_buyPrice < 0) {
-      this.alertHeader = "Harga Beli NEGATIF";
-      this.alertMessage = "Harga Beli TIDAK BOLEH NEGATIF";
-      this.add_buyPrice = 0;
-      this.isAlertTrigger = true;
-      return;
-    } else if (this.add_buyPrice > 100000) {
-      this.alertHeader = "Harga Beli KEMAHALAN";
-      this.alertMessage = "Harga Beli TIDAK BOLEH LEBIH DARI 100rb";
-      this.add_buyPrice = 100000;
-      this.isAlertTrigger = true;
-      return;
+    if (adaError) {
+      this.alertHeader = "Ada ERROR";
+      this.alertMessage = "Semua bagian form WAJIB DIISI !";
+      this.isSuccessAlert = false;
     }
-
-    // 4. Cek Format URL Kosong
-    if (!this.add_url || this.add_url.trim() === '') {
-      this.alertHeader = "Image URL KOSONG";
-      this.alertMessage = "Image URL WAJIB DIISI";
-      this.isAlertTrigger = true;
-      return;
+    else {
+      this.alertHeader = "Menambahkan Produk";
+      this.alertMessage = "Berhasil menambahkan produk baru";
+      this.isSuccessAlert = true;
     }
+    this.isAlertOpen = true;
+  }
 
-    // 5. Cek Validitas URL
-    try {
-      new URL(this.add_url);
-    } catch (e) {
-      this.alertHeader = 'Format URL SALAH';
-      this.alertMessage = 'Format URL Salah. Pastikan link diawali dengan http:// atau https://';
-      this.isAlertTrigger = true;
-      this.add_url = '';
-      return;
+  handleAlertDismiss() {
+    this.isAlertOpen = false;
+    if (this.isSuccessAlert) {
+      this.addproduk();
+      this.clearAll();
     }
-    
-    // Munculkan Alert Sukses
-    this.alertHeader = "Add Produk";
-    this.alertMessage = "Berhasil menambahkan produk";
-    this.alertButtons = [
-        {
-          text: 'OK',
-          handler: () => {
-            // 1. Matikan saklar alert secara manual saat tombol diklik
-            this.isAlertTrigger = false; 
+  }
 
-            // 2. Beri jeda 0.3 detik (300 milidetik) agar animasi alert tertutup sempurna, baru pindah halaman
-            setTimeout(() => {
-              this.addproduk(); 
-            }, 300); 
-          }
-        }
-    ];
-    
-    this.isAlertTrigger = true;
+  clearAll() {
+    this.add_name = '';
+    this.add_kategori = '';
+    this.add_desc = '';
+    this.add_url = '';
+    this.add_buyPrice = 0;
+    this.add_sellPrice = 0;
+    this.add_stok=0;
+
+    this.err_name = '';
+    this.err_kategori = '';
+    this.err_desc = '';
+    this.err_url = '';
+    this.err_hargabeli = '';
+    this.err_hargajual = '';
   }
 }

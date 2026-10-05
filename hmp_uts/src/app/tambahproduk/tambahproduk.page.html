@@ -15,52 +15,65 @@
   </ion-header>
 
   <ion-list>
-    <ion-item>
-      <ion-input label="Nama Produk" labelPlacement="stacked" placeholder="Masukkan nama produk" [(ngModel)]="add_name"
+    
+    <ion-item [class.tanpa-garis]="err_name">
+      <ion-input label="Nama Produk" labelPlacement="stacked" placeholder="Masukkan nama produk" 
+        [(ngModel)]="add_name"
+        [class.ion-invalid]="err_name"
+        [class.ion-touched]="err_name"
+        [errorText]="err_name" 
         (ionBlur)="cekNama()" required></ion-input>
-      <ion-alert 
-        [isOpen]="isAlertTrigger" 
-        [header]="alertHeader" 
-        [message]="alertMessage" 
-        [buttons]="alertButtons"
-        (didDismiss)="isAlertTrigger = false">
-      </ion-alert>
+    </ion-item>
+    
+
+    <ion-item [class.tanpa-garis]="err_kategori">
+      <ion-input label="Kategori Produk" labelPlacement="stacked" placeholder="Masukkan kategori produk" 
+        [(ngModel)]="add_kategori"
+        [class.ion-invalid]="err_kategori"
+        [class.ion-touched]="err_kategori"
+        [errorText]="err_kategori"
+        (ionBlur)="cekKategori()" required></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item [class.tanpa-garis]="err_url">
       <ion-input type="url" label="Produk Image URL" labelPlacement="stacked" placeholder="Masukkan URL gambar produk"
-        [(ngModel)]="add_url" (ionBlur)="cekFormatUrl()" required></ion-input>
+        [(ngModel)]="add_url" 
+        [class.ion-invalid]="err_url"
+        [class.ion-touched]="err_url"
+        [errorText]="err_url"
+        (ionBlur)="cekFormatUrl()" required></ion-input>
     </ion-item>
     <div *ngIf="add_url">
       <ion-img [src]="add_url" style="width:50%;height:50%;padding:20px"></ion-img>
     </div>
 
-    <ion-item>
+    <ion-item [class.tanpa-garis]="err_desc">
       <ion-textarea label="Deskripsi Produk" labelPlacement="stacked" placeholder="Masukkan deskripsi produk"
-        [autoGrow]="true" [(ngModel)]="add_desc" (ionBlur)="cekDeskripsi()" required></ion-textarea>
-      <ion-alert 
-        [isOpen]="isAlertTrigger" 
-        [header]="alertHeader" 
-        [message]="alertMessage" 
-        [buttons]="alertButtons"
-        (didDismiss)="isAlertTrigger = false">
-      </ion-alert>
+        [autoGrow]="true" 
+        [(ngModel)]="add_desc" 
+        [class.ion-invalid]="err_desc"
+        [class.ion-touched]="err_desc"
+        [errorText]="err_desc"
+        (ionBlur)="cekDeskripsi()" required></ion-textarea>
     </ion-item>
 
-    <ion-item>
+    <ion-item [class.tanpa-garis]="err_hargabeli">
       <ion-input type="number" label="Harga Beli" labelPlacement="stacked" placeholder="Masukkan harga beli"
-        [(ngModel)]="add_buyPrice" min="0" max="100000" (keyup)="cekHargaBeli()" required></ion-input>
-      <ion-alert 
-        [isOpen]="isAlertTrigger" 
-        [header]="alertHeader" 
-        [message]="alertMessage" 
-        [buttons]="alertButtons"
-        (didDismiss)="isAlertTrigger = false">
-      </ion-alert>
+        [(ngModel)]="add_buyPrice" 
+        min="0" 
+        max="100000"
+        step="5000"
+        [class.ion-invalid]="err_hargabeli"
+        [class.ion-touched]="err_hargabeli"
+        [errorText]="err_hargabeli" 
+        (keyup)="cekHargaBeli()" required></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item [class.tanpa-garis]="err_hargajual">
       <ion-select label="Harga Jual" labelPlacement="stacked" placeholder="Pilih harga jual yg sesuai"
+        [class.ion-invalid]="err_hargajual"
+        [class.ion-touched]="err_hargajual"
+        [errorText]="err_hargajual"
         [(ngModel)]="add_sellPrice" required>
         <ion-select-option *ngFor="let hargaJual of arr_sellPrice" [value]="hargaJual">{{hargaJual}}</ion-select-option>
       </ion-select>
@@ -77,17 +90,16 @@
       </ion-button>
     </ion-item>
 
-    <ion-button type="submit" expand="block" (click)="cekSubmit()">
+    <ion-button id="btnSubmit" type="submit" expand="block" (click)="cekSubmit()">
       <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
        Submit
     </ion-button>
-    
-    <ion-alert 
-      [isOpen]="isAlertTrigger" 
-      [header]="alertHeader" 
-      [message]="alertMessage" 
-      [buttons]="alertButtons"
-      (didDismiss)="isAlertTrigger = false">
-    </ion-alert>
+    <ion-alert
+        [isOpen]="isAlertOpen"
+        [header]="alertHeader"
+        [message]="alertMessage"
+        [buttons]="alertButtons"
+        (didDismiss)="handleAlertDismiss()">
+      </ion-alert>
   </ion-list>
 </ion-content>

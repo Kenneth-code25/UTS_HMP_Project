@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Products } from '../products';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-produk',
   templateUrl: './produk.page.html',
@@ -9,14 +10,40 @@ import { Router } from '@angular/router';
 })
 export class ProdukPage implements OnInit {
 
-  arrProduk: any[] = []
-  defaultImageUrl = this.products.urldefault;; // URL gambar default
+  arrProduk: any[] = [];
+  filteredProduk: any[]=[];
+  searchProduk: string='';
+  defaultImageUrl = this.products.urldefault; // URL gambar default
 
-  constructor(private products: Products, private router:Router) {
+  constructor(private products: Products, private router:Router, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.arrProduk=this.products.produk;
+    this.filteredProduk=[...this.arrProduk];
+  }
+
+  ionViewWillEnter() {
+    const dataDariService = this.products.produk;
+    if (dataDariService) {
+      this.arrProduk = [...dataDariService];
+      this.filteredProduk = [...this.arrProduk];
+    } else {
+      this.arrProduk = [];
+      this.filteredProduk = [];
+    }
+    this.cdr.detectChanges();
+  }
+
+  filterProduk() {
+    const keyword = this.searchProduk.toLowerCase();
+    if(!keyword) {
+      this.filteredProduk = [...this.arrProduk];
+      return;
+    }
+    this.filteredProduk = this.arrProduk.filter(produk => {
+      return produk.name.toLowerCase().includes(keyword) || produk.kategori.toLowerCase().includes(keyword);
+    });
   }
 
   chunkArray(arr: any[], chunkSize: number): any[][] {

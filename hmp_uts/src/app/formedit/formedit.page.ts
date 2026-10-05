@@ -16,10 +16,12 @@ export class FormeditPage implements OnInit {
   defaultImageUrl = '';
   arr_sellPrice:number[]=[];
   isEditing: boolean = true;
-  isStokNegatif:boolean = true;
+  isStokNegatif:boolean = false;
+
+  tempValue:any = {};
 
   editing: { [key: string]: boolean } = {
-    name: false, description: false, url: false,
+    name: false, kategori:false, description: false, url: false,
     hargabeli: false, hargajual: false, stok: false,
   };
 
@@ -37,7 +39,17 @@ export class FormeditPage implements OnInit {
   }
 
   bisaDiEdit(bagianApa: string) {
-    this.editing[bagianApa] = !this.editing[bagianApa];
+    this.tempValue[bagianApa] = this.produks[bagianApa];
+    this.editing[bagianApa]=true;
+  }
+
+  batalEdit(bagianApa:string){
+    this.produks[bagianApa] = this.tempValue[bagianApa];
+    this.editing[bagianApa]=false;
+  }
+
+  simpanEdit(bagianApa:string){
+    this.editing[bagianApa] = false;
   }
 
    generateNumberOptions(start:number,end:number,step:number):number[]{
@@ -55,7 +67,7 @@ export class FormeditPage implements OnInit {
 
   remove() {
      this.produks.stok--;
-    if( this.produks.stok==0) this.isStokNegatif=true;
+    if(this.produks.stok<=0) this.isStokNegatif=true;
   }
   
 }

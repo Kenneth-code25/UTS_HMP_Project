@@ -23,6 +23,7 @@ defaultImageUrl = this.products.urldefault;
      this.route.params.subscribe(params => {
      this.index = params['index']
      this.produks = this.arrProduk[this.index];
+     if (this.produks.stok == 0) this.isDisabledAddToCart = true;
   });
 }
   minus(){

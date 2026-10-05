@@ -4,22 +4,27 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Daftar Produk</ion-title>
+    <ion-buttons style="align-items: center;" slot="end">
+      <ion-searchbar class="search-produk" slot="end" 
+                    placeholder="Cari..." 
+                    [(ngModel)]="searchProduk"
+                    (ionInput)="filterProduk()"></ion-searchbar>
 
-    <ion-searchbar class="search-produk" slot="end"></ion-searchbar>
-    
-    <ion-button id="btnChat"size="small" slot="end" fill="clear">
-      <ion-icon name="chatbubble-ellipses-outline" ></ion-icon>
-      <ion-alert
-        trigger="btnChat"
-        header="Fitur Chat"
+      <ion-button id="btnChat" size="default" slot="end" fill="clear">
+        <ion-icon name="chatbubble-ellipses-outline" size="large"></ion-icon>
+      </ion-button>
+      <ion-alert trigger="btnChat" 
+        header="Fitur Chat" 
         message="Chat dengan Gemini/Claude aja, ngapain butuh fitur ini"
-        [buttons]="['OK']">
+        [buttons]="['OK']"> 
       </ion-alert>
-    </ion-button>
 
-    <ion-button size="small" slot="end" fill="clear" (click)="cekKeranjang()">
-      <ion-icon name="cart-outline"></ion-icon>
-    </ion-button>
+      <ion-button size="default" slot="end" fill="clear" (click)="cekKeranjang()">
+        <ion-icon name="cart-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
   </ion-toolbar>
 </ion-header>
 
@@ -30,18 +35,18 @@
     </ion-toolbar>
   </ion-header>
   <ion-grid>
-  <ion-row *ngFor="let produk2 of chunkArray(arrProduk, 2); let i = index" >
-    <ion-col size="6" *ngFor="let produk of produk2; let i2 = index" >
-      <ion-list [routerLink]="['/produkdetail', arrProduk.indexOf(produk)]">
-         <ion-item>
-           <ion-img class="gambar-produk" *ngIf="produk.url" [src]="produk.url" ></ion-img>
-           <ion-img class="gambar-produk" *ngIf="!produk.url" [src]="defaultImageUrl"></ion-img>
-         </ion-item>
-         <ion-item>
-           {{produk.name}}
-         </ion-item>
-     </ion-list>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+    <ion-row *ngFor="let produk2 of chunkArray(filteredProduk, 2); let i = index">
+      <ion-col size="6" *ngFor="let produk of produk2; let i2 = index">
+        <ion-list [routerLink]="['/produkdetail', arrProduk.indexOf(produk)]">
+          <ion-item>
+            <ion-img class="gambar-produk" *ngIf="produk.url" [src]="produk.url"></ion-img>
+            <ion-img class="gambar-produk" *ngIf="!produk.url" [src]="defaultImageUrl"></ion-img>
+          </ion-item>
+          <ion-item>
+            {{produk.name}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
