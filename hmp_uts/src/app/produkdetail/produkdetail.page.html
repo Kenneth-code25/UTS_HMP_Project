@@ -34,6 +34,9 @@
     <ion-item>
       Stok : {{ produks.stok }}
     </ion-item>
+    <ion-item>
+      Kategori : {{ produks.kategori }}
+    </ion-item>
 
     <ion-item>
       <ion-text>
@@ -42,7 +45,7 @@
 
         <ion-button
         size="small"
-        (click)="minus()">
+        (click)="minus()" [disabled] = "isDisabledMinus">
         <ion-icon name="remove-outline"></ion-icon>
       </ion-button>
 
@@ -52,12 +55,12 @@
 
       <ion-button
         size="small"
-        (click)="plus()">
+        (click)="plus()" [disabled] = "isDisabledPlus">
         <ion-icon name="add-outline"></ion-icon>
       </ion-button>
-      </ion-item>
+      </ion-item >
 
-    <ion-button class="btnAddKeranjang"type="submit" expand="block" (click)="tambahKeranjang()">
+    <ion-button class="btnAddKeranjang"type="submit" expand="block" (click)="tambahKeranjang()" [disabled] = "isDisabledAddToCart">
       <ion-icon class="icon-btnAddKeranjang" name="add" slot="start"></ion-icon>
        Keranjang
     </ion-button>

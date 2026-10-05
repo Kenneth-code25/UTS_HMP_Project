@@ -13,6 +13,9 @@ index = 0;
 buyAmount = 0;
 arrProduk : any[] = []
 produks : any;
+isDisabledMinus = true;
+isDisabledPlus = false;
+isDisabledAddToCart = false;
 defaultImageUrl = this.products.urldefault;
   constructor(private route: ActivatedRoute, private products: Products, private keranjang: Keranjang) { }
   ngOnInit() {
@@ -23,26 +26,20 @@ defaultImageUrl = this.products.urldefault;
   });
 }
   minus(){
-   if(this.buyAmount > 0){
      this.buyAmount--;
-   }
-   else{
-     this.buyAmount=0;
-   }
-}
-plus(){
-   if(this.buyAmount < this.produks.stok){
+   if(this.buyAmount <= 0) this.isDisabledMinus = true;
+   this.isDisabledPlus = false;
+  }
+plus(){  
      this.buyAmount++;
-   }
-   else{
-     this.buyAmount=this.produks.stok;
-   }
+     if(this.buyAmount >= this.produks.stok) this.isDisabledPlus = true;
+     this.isDisabledMinus = false;
 }
 tambahKeranjang() {
   this.keranjang.tambahKeKeranjang(
     this.produks,
     this.buyAmount
   );
-  console.log("👉 CCTV 1: Sukses Tambah! Isi keranjang di Service sekarang:", this.keranjang.getKeranjang());
+  if (this.produks.stok == 0) this.isDisabledAddToCart = true;
 }
 }
