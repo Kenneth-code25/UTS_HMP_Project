@@ -1,2 +1,57 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+:root {
+  /* MERAH UTAMA */
+  --ion-color-primary: #d32f2f;
+  --ion-color-primary-rgb: 211, 47, 47;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+
+  /* HEADER / TOOLBAR BAR MERAH DENGAN TEKS PUTIH */
+  --ion-toolbar-background: #d32f2f;
+  --ion-toolbar-color: #ffffff;
+
+  /* ISI UTAMA HALAMAN TERANG DENGAN TEKS GELAP */
+  --ion-background-color: #f8f9fa;
+  --ion-text-color: #1a1a1a;
+
+  /* KARTU & LIST ITEM PUTIH DENGAN TEKS GELAP */
+  --ion-item-background: #ffffff;
+  --ion-item-color: #1a1a1a;
+  --ion-card-background: #ffffff;
+  --ion-card-color: #1a1a1a;
+
+  /* TAB BAR BAWAH */
+  --ion-tab-bar-background: #d32f2f;
+  --ion-tab-bar-color: #1a1a1a;
+  --ion-tab-bar-color-selected: #ffffff;
+}
+
+/* Pengaturan Mode Gelap (Dark Mode) */
+body.dark {
+  /* Warna Utama Mode Gelap */
+  --ion-color-primary: #ff5252;
+  --ion-color-primary-shade: #d32f2f;
+  --ion-color-primary-tint: #ff7979;
+
+  /* Header Bar Gelap Teks Putih */
+  --ion-toolbar-background: #1f1f1f;
+  --ion-toolbar-color: #ffffff;
+
+  /* Background Utama Mode Gelap */
+  --ion-background-color: #121212;
+  --ion-background-color-rgb: 18, 18, 18;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+
+  /* Item & Kartu Mode Gelap */
+  --ion-item-background: #1e1e1e;
+  --ion-item-color: #ffffff;
+  --ion-card-background: #1e1e1e;
+  --ion-card-color: #ffffff;
+
+  /* Tab Bar Bawah Mode Gelap */
+  --ion-tab-bar-background: #1f1f1f;
+  --ion-tab-bar-color: #b0b0b0;
+  --ion-tab-bar-color-selected: #ff5252;
+}

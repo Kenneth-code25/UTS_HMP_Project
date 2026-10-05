@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Keranjang } from '../keranjang';
 
 @Component({
   selector: 'app-keranjang',
@@ -8,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KeranjangPage implements OnInit {
 
-  constructor() { }
-
+  constructor(private keranjang: Keranjang) { }
+arrayKeranjang: any[] = [];
   ngOnInit() {
   }
-
+ionViewWillEnter() {
+    this.arrayKeranjang = this.keranjang.getKeranjang();
+  }
 }

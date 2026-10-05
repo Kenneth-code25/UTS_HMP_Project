@@ -13,4 +13,21 @@
       <ion-title size="large">keranjang</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-list>
+
+    <ion-item *ngFor="let item of arrayKeranjang">
+
+      <ion-label>
+        <h2>{{ item.nama }}</h2>
+
+        <p>Kategori: {{ item.kategori }}</p>
+
+        <p>Jumlah: {{ item.jumlah }}</p>
+
+        <p>Total Harga: Rp{{ item.totalHarga }}</p>
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list>
 </ion-content>

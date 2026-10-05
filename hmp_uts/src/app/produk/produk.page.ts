@@ -17,22 +17,7 @@ export class ProdukPage implements OnInit {
   }
 
   ngOnInit() {
-    this.muatArray();
-  }
-
-  ionViewWillEnter() {
-    this.muatArray();
-  }
-
-  muatArray() {
-    if (this.products.produk) {
-      this.arrProduk = [...this.products.produk];
-    } else {
-      this.arrProduk = [];
-    }
-
-    // Potong ulang array-nya
-    this.chunkedProduct = this.chunkArray(this.arrProduk, 2);
+    this.arrProduk=this.products.produk;
   }
 
   chunkArray(arr: any[], chunkSize: number): any[][] {

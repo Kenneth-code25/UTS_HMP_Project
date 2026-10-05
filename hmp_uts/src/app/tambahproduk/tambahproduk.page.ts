@@ -17,6 +17,7 @@ export class TambahprodukPage implements OnInit {
   arr_sellPrice:number[]=[];
   add_sellPrice:number=0;
   add_stok:number = 0;
+  add_kategori:string = ""; 
 
   //variabel buat pengecekan
   isStokNegatif:boolean=true;
@@ -32,7 +33,7 @@ export class TambahprodukPage implements OnInit {
   }
 
   addproduk() {
-    this.products.tambahproduk(this.add_name,this.add_url,this.add_desc,this.add_buyPrice,this.add_sellPrice,this.add_stok);
+    this.products.tambahproduk(this.add_name,this.add_url,this.add_desc,this.add_buyPrice,this.add_sellPrice,this.add_stok,this.add_kategori);
     this.router.navigate(['/produk']);
   }
 

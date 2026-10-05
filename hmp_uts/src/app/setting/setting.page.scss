@@ -1,0 +1,15 @@
+/* Target berdasarkan Element */
+ion-list-header {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* Target berdasarkan Class */
+.danger-item {
+  color: var(--ion-color-danger);
+}
+
+/* Target berdasarkan ID */
+#settingContainer {
+  margin-top: 10px;
+}
