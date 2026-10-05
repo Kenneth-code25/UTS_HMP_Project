@@ -76,6 +76,14 @@ export class Products {
       hargabeli: 45000,
       hargajual: 70000,
       stok: 10
+    },
+    {
+      name: "TESTING",
+      url: "",
+      description: "Complete cutlery set containing essential utensils for everyday dining.",
+      hargabeli: 45000,
+      hargajual: 70000,
+      stok: 10
     }
   ];
 

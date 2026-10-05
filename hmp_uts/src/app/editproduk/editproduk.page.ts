@@ -9,7 +9,7 @@ import { Products } from '../products';
 })
 export class EditprodukPage implements OnInit {
 
-  arrProduk: any[] = []
+  arrProduk: any[] = [];
   defaultImageUrl = this.products.urldefault;; // URL gambar default
   chunkedProduct: any[][] = [];
   constructor(private products: Products) { }

@@ -11,28 +11,12 @@ export class ProdukPage implements OnInit {
 
   arrProduk: any[] = []
   defaultImageUrl = this.products.urldefault;; // URL gambar default
-  chunkedProduct: any[][] = [];
 
   constructor(private products: Products, private router:Router) {
   }
 
   ngOnInit() {
-    this.muatArray();
-  }
-
-  ionViewWillEnter() {
-    this.muatArray();
-  }
-
-  muatArray() {
-    if (this.products.produk) {
-      this.arrProduk = [...this.products.produk];
-    } else {
-      this.arrProduk = [];
-    }
-
-    // Potong ulang array-nya
-    this.chunkedProduct = this.chunkArray(this.arrProduk, 2);
+    this.arrProduk=this.products.produk;
   }
 
   chunkArray(arr: any[], chunkSize: number): any[][] {

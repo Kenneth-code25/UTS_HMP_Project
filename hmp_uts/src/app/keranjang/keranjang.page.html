@@ -12,5 +12,9 @@
     <ion-toolbar>
       <ion-title size="large">keranjang</ion-title>
     </ion-toolbar>
+
+    <ion-item *ngFor="let item of carts.items; let i = index">
+      <ion-label>{{item.produk.name}} dan {{item.jumlah}}</ion-label>
+    </ion-item>
   </ion-header>
 </ion-content>
