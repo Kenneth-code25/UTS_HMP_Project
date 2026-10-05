@@ -43,5 +43,6 @@ tambahKeranjang() {
     this.produks,
     this.buyAmount
   );
+  console.log("👉 CCTV 1: Sukses Tambah! Isi keranjang di Service sekarang:", this.keranjang.getKeranjang());
 }
 }

@@ -50,7 +50,7 @@
         </ion-accordion-group>
 
         <ion-menu-toggle>
-          <ion-item routerLink="/keranjang" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
+          <ion-item routerLink="/keranjang" routerDirection="forward" (click)="menuAccordion.value = undefined" routerLinkActive="menu-aktif">
             <ion-icon name="cart-outline" slot="start"></ion-icon>
             <ion-label>Keranjang</ion-label>
           </ion-item>
