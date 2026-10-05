@@ -30,7 +30,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-grid>
-  <ion-row *ngFor="let produk2 of chunkArray(arrProduk,2); let i = index" >
+  <ion-row *ngFor="let produk2 of chunkArray(arrProduk, 2); let i = index" >
     <ion-col size="6" *ngFor="let produk of produk2; let i2 = index" >
       <ion-list [routerLink]="['/produkdetail', arrProduk.indexOf(produk)]">
          <ion-item>

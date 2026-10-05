@@ -10,4 +10,25 @@
       <ion-title size="large">setting</ion-title>
     </ion-toolbar>
   </ion-header>
+
+<ion-list [inset]="true">
+    <!-- Toggle Dark Mode -->
+    <ion-item>
+      <ion-icon name="moon-outline" slot="start"></ion-icon>
+      <ion-label>Mode Gelap</ion-label>
+      <ion-toggle [(ngModel)]="isDarkModeEnabled" (ionChange)="toggleDarkMode($event)"></ion-toggle>
+    </ion-item>
+
+    <!-- Pilihan Warna Utama -->
+    <ion-item>
+      <ion-icon name="color-palette-outline" slot="start"></ion-icon>
+      <ion-label>Warna Tema</ion-label>
+      <ion-select value="default" interface="popover">
+        <ion-select-option value="default">Default Ionic</ion-select-option>
+        <ion-select-option value="red">Merah Nusantara</ion-select-option>
+        <ion-select-option value="blue">Biru Ocean</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

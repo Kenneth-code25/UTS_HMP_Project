@@ -35,7 +35,29 @@
       Stok : {{ produks.stok }}
     </ion-item>
 
-    <ion-button class="btnAddKeranjang"type="submit" expand="block">
+    <ion-item>
+      <ion-text>
+        Amount
+      </ion-text>
+
+        <ion-button
+        size="small"
+        (click)="minus()">
+        <ion-icon name="remove-outline"></ion-icon>
+      </ion-button>
+
+      <ion-text>
+        {{ buyAmount }}
+      </ion-text>
+
+      <ion-button
+        size="small"
+        (click)="plus()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+      </ion-item>
+
+    <ion-button class="btnAddKeranjang"type="submit" expand="block" (click)="tambahKeranjang()">
       <ion-icon class="icon-btnAddKeranjang" name="add" slot="start"></ion-icon>
        Keranjang
     </ion-button>
