@@ -1,16 +1,234 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-    <ion-back-button defaultHref="/home"></ion-back-button>
-</ion-buttons>
-    <ion-title>dashboard</ion-title>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="default" fill="clear" (click)="cekKeranjang()">
+        <ion-icon name="cart-outline" size="large"></ion-icon>
+        <ion-badge *ngIf="totalItemKeranjang > 0" color="danger">{{ totalItemKeranjang }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
+      <ion-title size="large">Dashboard</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-card class="welcome-card">
+    <ion-card-content>
+      <div class="welcome-header">
+        <div>
+          <h2>Selamat Datang! 👋</h2>
+          <p>Ringkasan inventaris & status penjualan toko</p>
+        </div>
+        <ion-icon name="storefront-outline" class="store-icon"></ion-icon>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="stat-card" routerLink="/produk">
+          <ion-card-content>
+            <div class="stat-icon-wrapper icon-primary">
+              <ion-icon name="cube-outline"></ion-icon>
+            </div>
+            <p class="stat-label">Total Produk</p>
+            <h3 class="stat-value">{{ totalProduk }} Item</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card class="stat-card">
+          <ion-card-content>
+            <div class="stat-icon-wrapper icon-success">
+              <ion-icon name="layers-outline"></ion-icon>
+            </div>
+            <p class="stat-label">Total Stok</p>
+            <h3 class="stat-value">{{ totalStok }} Unit</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card class="stat-card">
+          <ion-card-content>
+            <div class="stat-icon-wrapper icon-warning">
+              <ion-icon name="wallet-outline"></ion-icon>
+            </div>
+            <p class="stat-label">Total Modal</p>
+            <h3 class="stat-value">{{ formatRupiah(totalNilaiAset) }}</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card class="stat-card">
+          <ion-card-content>
+            <div class="stat-icon-wrapper icon-tertiary">
+              <ion-icon name="trending-up-outline"></ion-icon>
+            </div>
+            <p class="stat-label">Potensi Omzet</p>
+            <h3 class="stat-value">{{ formatRupiah(totalPotensiPenjualan) }}</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="cart-summary-card" *ngIf="totalItemKeranjang > 0" routerLink="/keranjang">
+    <ion-card-content>
+      <div class="cart-summary-content">
+        <div class="cart-info">
+          <ion-icon name="cart-outline" color="primary"></ion-icon>
+          <div>
+            <strong>Keranjang Belanja Aktif</strong>
+            <p>{{ totalItemKeranjang }} barang terpilih &bull; {{ formatRupiah(totalNominalKeranjang) }}</p>
+          </div>
+        </div>
+        <ion-button fill="outline" size="small" shape="round">
+          Lihat
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="section-title">
+    <ion-icon name="flash-outline"></ion-icon>
+    <span>Aksi Cepat</span>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <div class="quick-btn" routerLink="/produk">
+          <div class="quick-btn-icon bg-blue">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+          </div>
+          <span>Katalog</span>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="quick-btn" routerLink="/tambahproduk">
+          <div class="quick-btn-icon bg-green">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </div>
+          <span>Tambah</span>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="quick-btn" routerLink="/editproduk">
+          <div class="quick-btn-icon bg-orange">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <span>Edit</span>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="quick-btn" routerLink="/keranjang">
+          <div class="quick-btn-icon bg-red">
+            <ion-icon name="cart-outline"></ion-icon>
+          </div>
+          <span>Keranjang</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="section-title">
+    <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+    <span>Peringatan Stok Barang</span>
+  </div>
+
+  <ion-card class="content-card">
+    <ion-list lines="inset">
+      <ion-item *ngFor="let item of produkStokHabis" class="stock-item-empty">
+        <ion-icon name="close-circle-outline" color="danger" slot="start"></ion-icon>
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>Kategori: {{ item.kategori }} &bull; Harga: {{ formatRupiah(item.hargajual) }}</p>
+        </ion-label>
+        <ion-badge color="danger" slot="end">Habis</ion-badge>
+        <ion-button fill="clear" size="small" slot="end" [routerLink]="['/formedit', arrProduk.indexOf(item)]">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item *ngFor="let item of produkStokMenipis" class="stock-item-warning">
+        <ion-icon name="warning-outline" color="warning" slot="start"></ion-icon>
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>Kategori: {{ item.kategori }} &bull; Harga: {{ formatRupiah(item.hargajual) }}</p>
+        </ion-label>
+        <ion-badge color="warning" slot="end">Sisa {{ item.stok }}</ion-badge>
+        <ion-button fill="clear" size="small" slot="end" [routerLink]="['/formedit', arrProduk.indexOf(item)]">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item *ngIf="produkStokHabis.length === 0 && produkStokMenipis.length === 0">
+        <ion-icon name="checkmark-circle-outline" color="success" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Semua Stok Aman</h3>
+          <p>Tidak ada produk yang habis atau menipis saat ini.</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <div class="section-title">
+    <ion-icon name="grid-outline"></ion-icon>
+    <span>Statistik per Kategori</span>
+  </div>
+
+  <ion-card class="content-card">
+    <ion-list lines="inset">
+      <ion-item *ngFor="let kat of summaryKategori">
+        <ion-icon [name]="getKategoriIcon(kat.nama)" color="primary" slot="start"></ion-icon>
+        <ion-label>
+          <h3>{{ kat.nama }}</h3>
+          <p>{{ kat.totalItem }} Jenis Produk</p>
+        </ion-label>
+        <ion-badge color="medium" slot="end">{{ kat.totalStok }} Unit</ion-badge>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <div class="section-title-between">
+    <div class="section-title" style="margin: 0;">
+      <ion-icon name="sparkles-outline"></ion-icon>
+      <span>Cuplikan Produk</span>
+    </div>
+    <ion-button fill="clear" size="small" routerLink="/produk">
+      Lihat Semua
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-grid>
+    <ion-row *ngFor="let produk2 of chunkArray(produkTerbaru, 2)">
+      <ion-col size="6" *ngFor="let produk of produk2">
+        <ion-card class="preview-product-card" [routerLink]="['/produkdetail', arrProduk.indexOf(produk)]">
+          <ion-img class="gambar-produk-dashboard" *ngIf="produk.url" [src]="produk.url"></ion-img>
+          <ion-img class="gambar-produk-dashboard" *ngIf="!produk.url" [src]="defaultImageUrl"></ion-img>
+          <ion-card-content class="preview-card-content">
+            <ion-badge [color]="produk.stok === 0 ? 'danger' : (produk.stok <= 5 ? 'warning' : 'success')" class="stock-badge">
+              {{ produk.stok === 0 ? 'Habis' : 'Stok: ' + produk.stok }}
+            </ion-badge>
+            <h4 class="product-name">{{ produk.name }}</h4>
+            <p class="product-price">{{ formatRupiah(produk.hargajual) }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
