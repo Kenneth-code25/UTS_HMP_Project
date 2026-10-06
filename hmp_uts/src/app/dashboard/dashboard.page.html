@@ -24,13 +24,18 @@
     <ion-card-content>
       <div class="welcome-header">
         <div>
-          <h2>Selamat Datang! 👋</h2>
-          <p>Ringkasan inventaris & status penjualan toko</p>
+          <h2>SIMOBILE Dashboard 👋</h2>
+          <p>Ringkasan inventaris & performa penjualan toko</p>
         </div>
         <ion-icon name="storefront-outline" class="store-icon"></ion-icon>
       </div>
     </ion-card-content>
   </ion-card>
+
+  <div class="section-title">
+    <ion-icon name="stats-chart-outline"></ion-icon>
+    <span>Ringkasan Utama</span>
+  </div>
 
   <ion-grid>
     <ion-row>
@@ -40,20 +45,21 @@
             <div class="stat-icon-wrapper icon-primary">
               <ion-icon name="cube-outline"></ion-icon>
             </div>
-            <p class="stat-label">Total Produk</p>
-            <h3 class="stat-value">{{ totalProduk }} Item</h3>
+            <p class="stat-label">Jumlah Produk</p>
+            <h3 class="stat-value">{{ jumlahProduk }} Produk</h3>
           </ion-card-content>
         </ion-card>
       </ion-col>
 
       <ion-col size="6">
-        <ion-card class="stat-card">
+        <ion-card class="stat-card" routerLink="/transaksi">
           <ion-card-content>
             <div class="stat-icon-wrapper icon-success">
-              <ion-icon name="layers-outline"></ion-icon>
+              <ion-icon name="receipt-outline"></ion-icon>
             </div>
-            <p class="stat-label">Total Stok</p>
-            <h3 class="stat-value">{{ totalStok }} Unit</h3>
+            <p class="stat-label">Transaksi Hari Ini</p>
+            <h3 class="stat-value">{{ formatRupiah(totalTransaksiHariIni) }}</h3>
+            <span class="stat-sub-text">{{ jumlahTransaksiHariIni }} Transaksi</span>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -62,10 +68,10 @@
         <ion-card class="stat-card">
           <ion-card-content>
             <div class="stat-icon-wrapper icon-warning">
-              <ion-icon name="wallet-outline"></ion-icon>
+              <ion-icon name="layers-outline"></ion-icon>
             </div>
-            <p class="stat-label">Total Modal</p>
-            <h3 class="stat-value">{{ formatRupiah(totalNilaiAset) }}</h3>
+            <p class="stat-label">Total Stok Unit</p>
+            <h3 class="stat-value">{{ totalStok }} Unit</h3>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -74,15 +80,42 @@
         <ion-card class="stat-card">
           <ion-card-content>
             <div class="stat-icon-wrapper icon-tertiary">
-              <ion-icon name="trending-up-outline"></ion-icon>
+              <ion-icon name="wallet-outline"></ion-icon>
             </div>
-            <p class="stat-label">Potensi Omzet</p>
-            <h3 class="stat-value">{{ formatRupiah(totalPotensiPenjualan) }}</h3>
+            <p class="stat-label">Total Modal Aset</p>
+            <h3 class="stat-value">{{ formatRupiah(totalNilaiAset) }}</h3>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <div class="section-title">
+    <ion-icon name="trophy-outline" color="warning"></ion-icon>
+    <span>Produk Terlaris</span>
+  </div>
+
+  <ion-card class="bestseller-card">
+    <ion-card-content>
+      <div class="bestseller-content">
+        <div class="bestseller-badge">
+          <ion-icon name="flame"></ion-icon>
+          <span>Best Seller</span>
+        </div>
+        <div class="bestseller-body">
+          <div class="bestseller-info">
+            <h3 class="bestseller-name">{{ produkTerlaris.nama }}</h3>
+            <p class="bestseller-category" *ngIf="produkTerlaris.kategori">Kategori: {{ produkTerlaris.kategori }}</p>
+            <p class="bestseller-price" *ngIf="produkTerlaris.harga">{{ formatRupiah(produkTerlaris.harga) }}</p>
+          </div>
+          <div class="bestseller-sold">
+            <span class="sold-number">{{ produkTerlaris.totalTerjual }}</span>
+            <span class="sold-label">Terjual</span>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card class="cart-summary-card" *ngIf="totalItemKeranjang > 0" routerLink="/keranjang">
     <ion-card-content>
@@ -125,11 +158,11 @@
         </div>
       </ion-col>
       <ion-col size="3">
-        <div class="quick-btn" routerLink="/editproduk">
+        <div class="quick-btn" routerLink="/transaksi">
           <div class="quick-btn-icon bg-orange">
-            <ion-icon name="create-outline"></ion-icon>
+            <ion-icon name="receipt-outline"></ion-icon>
           </div>
-          <span>Edit</span>
+          <span>Transaksi</span>
         </div>
       </ion-col>
       <ion-col size="3">

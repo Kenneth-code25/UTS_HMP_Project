@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Products } from '../products';
 import { Keranjang } from '../keranjang';
+import { Transaksi } from '../transaksi';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,6 +19,7 @@ export class DashboardPage implements OnInit {
   constructor(
     private products: Products,
     private keranjang: Keranjang,
+    private transaksiService: Transaksi,
     private router: Router
   ) { }
 
@@ -32,8 +34,24 @@ export class DashboardPage implements OnInit {
     this.arrayKeranjang = this.keranjang.keranjangItems;
   }
 
+  get jumlahProduk(): number {
+    return this.products.getJumlahProduk();
+  }
+
+  get totalTransaksiHariIni(): number {
+    return this.transaksiService.getTotalTransaksiHariIni();
+  }
+
+  get jumlahTransaksiHariIni(): number {
+    return this.transaksiService.getJumlahTransaksiHariIni();
+  }
+
+  get produkTerlaris(): { nama: string; totalTerjual: number; url?: string; kategori?: string; harga?: number } {
+    return this.transaksiService.getProdukTerlaris();
+  }
+
   get totalProduk(): number {
-    return this.arrProduk.length;
+    return this.products.getJumlahProduk();
   }
 
   get totalStok(): number {
