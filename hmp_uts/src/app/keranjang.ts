@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class Keranjang {
   keranjangItems: any[] = []; // Array untuk menyimpan item keranjang
 
-     tambahKeKeranjang(produk: any, jumlah: number) { 
-          console.log('dipanggil:', produk, jumlah);
+  tambahKeKeranjang(produk: any, jumlah: number) {
+    console.log('dipanggil:', produk, jumlah);
     if (jumlah <= 0) {
       return;
     }
@@ -25,8 +25,8 @@ export class Keranjang {
 
     produk.stok -= jumlah;
 
-}
-getKeranjang() {
+  }
+  getKeranjang() {
     return this.keranjangItems;
   }
 }

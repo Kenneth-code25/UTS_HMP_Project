@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Products } from '../products';
 import { Router } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-produk',
   templateUrl: './produk.page.html',
@@ -15,24 +14,12 @@ export class ProdukPage implements OnInit {
   searchProduk: string='';
   defaultImageUrl = this.products.urldefault; // URL gambar default
 
-  constructor(private products: Products, private router:Router, private cdr: ChangeDetectorRef) {
+  constructor(private products: Products, private router:Router) {
   }
 
   ngOnInit() {
     this.arrProduk=this.products.produk;
     this.filteredProduk=[...this.arrProduk];
-  }
-
-  ionViewWillEnter() {
-    const dataDariService = this.products.produk;
-    if (dataDariService) {
-      this.arrProduk = [...dataDariService];
-      this.filteredProduk = [...this.arrProduk];
-    } else {
-      this.arrProduk = [];
-      this.filteredProduk = [];
-    }
-    this.cdr.detectChanges();
   }
 
   filterProduk() {

@@ -1,6 +1,9 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-@Service()
+@Injectable({
+  providedIn: 'root' // Sangat penting agar array dibagikan secara global ke semua halaman
+})
+
 
 export class Products {
   urldefault = "https://media.istockphoto.com/id/2251833117/photo/negative-feedback-and-customer-dissatisfaction-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=VN6cx0cRGoRICP7oY0VjCCbRRnlDyOLShX9V0KIHuzk=";

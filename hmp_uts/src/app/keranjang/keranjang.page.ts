@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Keranjang } from '../keranjang';
-import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-keranjang',
@@ -10,21 +10,9 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class KeranjangPage implements OnInit {
 
-  constructor(private keranjang: Keranjang, private cdr: ChangeDetectorRef) { }
+  constructor(private keranjang: Keranjang) { }
   arrayKeranjang: any[] = [];
   ngOnInit() {
-  }
-  ionViewWillEnter() {
-    const dataDariService = this.keranjang.getKeranjang();
-    console.log("👉 CCTV 2: Halaman Keranjang Berhasil Dibuka!");
-
-    console.log("👉 CCTV 3: Data yang ditangkap:", dataDariService);
-
-    if (dataDariService) {
-      this.arrayKeranjang = [...dataDariService];
-    } else {
-      this.arrayKeranjang = [];
-    }
-    this.cdr.detectChanges();
+    this.arrayKeranjang = this.keranjang.keranjangItems;
   }
 }
