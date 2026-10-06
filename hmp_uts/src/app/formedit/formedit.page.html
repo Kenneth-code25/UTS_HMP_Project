@@ -54,8 +54,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-input label="Kategori Produk" labelPlacement="stacked" [(ngModel)]="produks.kategori"
-        [disabled]="!editing['kategori']"></ion-input>
+      <ion-select label="Kategori Produk" labelPlacement="stacked" [(ngModel)]="produks.kategori"
+        [disabled]="!editing['kategori']">
+        <ion-select-option value="Makanan">Makanan</ion-select-option>
+        <ion-select-option value="Minuman">Minuman</ion-select-option>
+        <ion-select-option value="Peralatan Makan">Peralatan Makan</ion-select-option>
+        <ion-select-option value="Elektronik">Elektronik</ion-select-option>
+      </ion-select>
       <ion-button *ngIf="!editing['kategori']" size="default" fill="clear" slot="end" (click)="bisaDiEdit('kategori')">
         <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>

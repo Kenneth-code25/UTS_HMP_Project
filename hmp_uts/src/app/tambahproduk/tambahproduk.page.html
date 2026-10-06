@@ -27,12 +27,17 @@
     
 
     <ion-item [class.tanpa-garis]="err_kategori">
-      <ion-input label="Kategori Produk" labelPlacement="stacked" placeholder="Masukkan kategori produk" 
+      <ion-select label="Kategori Produk" labelPlacement="stacked" placeholder="Masukkan kategori produk" 
         [(ngModel)]="add_kategori"
         [class.ion-invalid]="err_kategori"
         [class.ion-touched]="err_kategori"
         [errorText]="err_kategori"
-        (ionBlur)="cekKategori()" required></ion-input>
+        (ionBlur)="cekKategori()" required>
+         <ion-select-option value="Makanan">Makanan</ion-select-option>
+         <ion-select-option value="Minuman">Minuman</ion-select-option>
+         <ion-select-option value="Peralatan Makan">Peralatan Makan</ion-select-option>
+         <ion-select-option value="Elektronik">Elektronik</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-item [class.tanpa-garis]="err_url">
