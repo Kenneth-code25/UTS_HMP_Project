@@ -4,27 +4,30 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Daftar Produk</ion-title>
+
+    <ion-select [(ngModel)]="tipeFilter" (ionChange)="onTipeFilterChange()" slot="end" label="Filter By : " placeholder="Ini filter">
+      <ion-select-option value="Kategori">Kategori</ion-select-option>
+      <ion-select-option value="Harga Beli">Harga Beli</ion-select-option>
+      <ion-select-option value="Harga Jual">Harga Jual</ion-select-option>
+      <ion-select-option value="Stok">Stok</ion-select-option>
+    </ion-select>
+
     <ion-buttons style="align-items: center;" slot="end">
-      <ion-searchbar class="search-produk" slot="end" 
-                    placeholder="Cari..." 
-                    [(ngModel)]="searchProduk"
-                    (ionInput)="filterProduk()"></ion-searchbar>
+      <ion-searchbar class="search-produk" slot="end" placeholder="Cari..." [(ngModel)]="searchProduk"
+        (ionInput)="filterProduk()"></ion-searchbar>
 
       <ion-button id="btnChat" size="default" slot="end" fill="clear">
         <ion-icon name="chatbubble-ellipses-outline" size="large"></ion-icon>
       </ion-button>
-      <ion-alert trigger="btnChat" 
-        header="Fitur Chat" 
-        message="Chat dengan Gemini/Claude aja, ngapain butuh fitur ini"
-        [buttons]="['OK']"> 
+
+      <ion-alert trigger="btnChat" header="Fitur Chat" message="Chat dengan Gemini/Claude aja, ngapain butuh fitur ini"
+        [buttons]="['OK']">
       </ion-alert>
 
       <ion-button size="default" slot="end" fill="clear" (click)="cekKeranjang()">
         <ion-icon name="cart-outline" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
-
-
   </ion-toolbar>
 </ion-header>
 
@@ -34,6 +37,63 @@
       <ion-title size="large">produk</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-segment *ngIf="tipeFilter === 'Kategori'" [(ngModel)]="kategoriAktif" (ionChange)="filterProduk()" scrollable="true">
+    <ion-segment-button value="Semua">
+      <ion-label>Semua</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Makanan">
+      <ion-label>Makanan</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Minuman">
+      <ion-label>Minuman</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Peralatan Makan">
+      <ion-label>Peralatan Makan</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Elektronik">
+      <ion-label>Elektronik</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment *ngIf="tipeFilter === 'Harga Beli'" [(ngModel)]="urutkanHarga" (ionChange)="filterProduk()"
+    scrollable="true">
+    <ion-segment-button value="semua">
+      <ion-label>Semua</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="termurah">
+      <ion-label>Termurah</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="termahal">
+      <ion-label>Termahal</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment *ngIf="tipeFilter === 'Harga Jual'" [(ngModel)]="urutkanHarga" (ionChange)="filterProduk()"
+    scrollable="true">
+     <ion-segment-button value="semua">
+      <ion-label>Semua</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="termurah">
+      <ion-label>Termurah</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="termahal">
+      <ion-label>Termahal</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment *ngIf="tipeFilter === 'Stok'" [(ngModel)]="statusStok" (ionChange)="filterProduk()" scrollable="true">
+     <ion-segment-button value="semua">
+      <ion-label>Semua</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="tersedia">
+      <ion-label>Tersedia</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="habis">
+      <ion-label>Habis</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-grid>
     <ion-row *ngFor="let produk2 of chunkArray(filteredProduk, 2); let i = index">
       <ion-col size="6" *ngFor="let produk of produk2; let i2 = index">

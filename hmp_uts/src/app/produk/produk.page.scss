@@ -8,3 +8,23 @@
     width: 70%;
     text-align: left;
 }
+ion-segment{
+  margin-top:10px;
+  padding:10px;
+}
+ion-segment-button {
+  --background: #f4f4f4;               // Warna background tombol saat biasa
+  --background-checked: #eb445a;       // Warna background merah saat aktif
+  --color: #666666;                    // Warna tulisan saat biasa
+  --color-checked: #ffffff;            // Warna tulisan putih saat aktif
+  
+  border: 1px solid #e0e0e0;           // Garis luar kotak tipis
+  border-radius: 8px;                  // Sudut kotak melengkung (tidak lancip)
+  margin: 0 4px;                       // Jarak antar kotak biar tidak dempet
+  --indicator-color: transparent;
+}
+
+ion-label{
+  text-transform: none;
+  font-size:15px;
+}
