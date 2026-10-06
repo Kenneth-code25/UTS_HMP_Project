@@ -105,4 +105,8 @@ export class Products {
     console.log("=== CEK SERVICE: Data Berhasil Di-push ===");
     console.table(this.produk);
   }
+
+getJumlahProduk(): number {
+  return this.produk.length; // Pastikan ada 'return'
+}
 }

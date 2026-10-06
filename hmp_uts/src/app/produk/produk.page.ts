@@ -50,23 +50,20 @@ export class ProdukPage implements OnInit {
     this.filteredProduk = hasilSementara;
 
     if (this.tipeFilter === 'Harga Beli') {
-      this.filteredProduk.sort((a, b) => {
         if (this.urutkanHarga === 'termurah') {
-          return a.hargabeli - b.hargabeli;
-        } else {
-          return b.hargabeli - a.hargabeli;
+          this.filteredProduk.sort((a, b) => a.hargabeli - b.hargabeli);
+        } 
+        else if (this.urutkanHarga === 'termahal'){
+          this.filteredProduk.sort((a, b) => b.hargabeli - a.hargabeli);
         }
-      });
     }
     else if (this.tipeFilter === 'Harga Jual') {
-      this.filteredProduk.sort((a, b) => {
         if (this.urutkanHarga === 'termurah') {
-          return a.hargajual - b.hargajual;
-        } else {
-          return b.hargajual - a.hargajual;
+          this.filteredProduk.sort((a, b) =>a.hargajual - b.hargajual);
+        } else if (this.urutkanHarga === 'termahal') {
+          this.filteredProduk.sort((a, b) => b.hargajual - a.hargajual);
         }
-      });
-    }
+    };
   }
   onTipeFilterChange() {
     this.kategoriAktif = 'Semua';
