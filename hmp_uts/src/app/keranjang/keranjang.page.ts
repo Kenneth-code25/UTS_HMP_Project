@@ -81,9 +81,16 @@ export class KeranjangPage implements OnInit {
     this.isPilihSemua = semuaTerpilih;
   }
 
-  prosesBeli() {
+ prosesBeli() {
     const items = this.arrayKeranjang.filter(item => item.selected);
     if (items.length === 0) return;
+
+    // Kembalikan stok untuk barang yang TIDAK dipilih (tetap di keranjang)
+    // dan langsung hapus barang yang DIPILIH dari keranjang
+    this.arrayKeranjang = this.arrayKeranjang.filter(item => !item.selected);
+    this.keranjang.keranjangItems = this.arrayKeranjang;
+    this.hitungTotal();
+
     this.router.navigate(['/transaksi'], { state: { items } });
   }
 
