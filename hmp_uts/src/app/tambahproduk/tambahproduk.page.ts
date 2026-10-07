@@ -19,8 +19,6 @@ export class TambahprodukPage implements OnInit {
   add_sellPrice: number = 0;
   add_stok: number = 0;
 
-
-  //variabel buat pengecekan
   isStokNegatif: boolean = true;
   err_name: string = "";
   err_kategori: string = "";

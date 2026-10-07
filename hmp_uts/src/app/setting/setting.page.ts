@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingPage implements OnInit {
 isDarkModeEnabled: boolean = false;
-selectedTheme: string = 'default'; // Default theme
+selectedTheme: string = 'default';
   constructor() { }
 
   ngOnInit() {

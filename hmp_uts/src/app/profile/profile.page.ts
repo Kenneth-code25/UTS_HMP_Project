@@ -16,10 +16,10 @@ export class ProfilePage implements OnInit {
     const animation = this.animationCtrl
       .create()
       .addElement(avatarElement)
-      .duration(5000) // Animation duration in milliseconds
-      .iterations(3) // do animation 3 times
+      .duration(5000)
+      .iterations(3) 
       .keyframes([
-        { offset: 0, opacity: '0' }, // Start with full opacity
+        { offset: 0, opacity: '0' }, 
         { offset: 0.2, opacity: '0.2' },
         { offset: 0.4, opacity: '0.4' },
         { offset: 0.6, opacity: '0.6' },
@@ -33,8 +33,8 @@ export class ProfilePage implements OnInit {
     const animation = this.animationCtrl
         .create()
         .addElement(avatarElement)
-      .duration(1200) // Animation duration in milliseconds
-        .iterations(1) // do animation 1 time
+      .duration(1200) 
+        .iterations(1) 
         .keyframes([
             { offset: 0, transform: 'scale(1.0)' }, 
          

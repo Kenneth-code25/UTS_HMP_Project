@@ -16,7 +16,7 @@ export class KeranjangPage implements OnInit {
 
   constructor(
     private keranjang: Keranjang, 
-    private products: Products, // Tambahkan service Products untuk update stok
+    private products: Products, 
     private router: Router,
     private navCtrl: NavController,
     private animationCtrl: AnimationController
@@ -38,12 +38,12 @@ export class KeranjangPage implements OnInit {
     this.hitungTotal();
   }
 
-  // Fungsi kurang jumlah
+
   kurangJumlah(item: any) {
     if (item.jumlah > 1) {
       item.jumlah--;
 
-      // Kembalikan 1 stok ke produk
+      
       const p = this.products.produk.find((prod: any) => prod.name === item.nama);
       if (p) p.stok++;
 
@@ -51,13 +51,13 @@ export class KeranjangPage implements OnInit {
     }
   }
 
-  // Fungsi hapus dari keranjang
+  
   hapusItem(item: any) {
-    // Kembalikan seluruh stok barang ini
+    
     const p = this.products.produk.find((prod: any) => prod.name === item.nama);
     if (p) p.stok += item.jumlah;
 
-    // Saring array untuk membuang item yang diklik
+  
      const index = this.arrayKeranjang.indexOf(item);
   if (index > -1) {
     this.arrayKeranjang.splice(index, 1);
@@ -92,8 +92,6 @@ export class KeranjangPage implements OnInit {
     const items = this.arrayKeranjang.filter(item => item.selected);
     if (items.length === 0) return;
 
-    // Kembalikan stok untuk barang yang TIDAK dipilih (tetap di keranjang)
-    // dan langsung hapus barang yang DIPILIH dari keranjang
     this.arrayKeranjang = this.arrayKeranjang.filter(item => !item.selected);
     this.keranjang.keranjangItems = this.arrayKeranjang;
     this.hitungTotal();

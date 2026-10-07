@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root' // Sangat penting agar array dibagikan secara global ke semua halaman
+  providedIn: 'root' 
 })
 
 
@@ -107,6 +107,6 @@ export class Products {
   }
 
 getJumlahProduk(): number {
-  return this.produk.length; // Pastikan ada 'return'
+  return this.produk.length; 
 }
 }

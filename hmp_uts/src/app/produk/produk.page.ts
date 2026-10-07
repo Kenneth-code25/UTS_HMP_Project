@@ -12,7 +12,7 @@ export class ProdukPage implements OnInit {
   arrProduk: any[] = [];
   filteredProduk: any[] = [];
   searchProduk: string = '';
-  defaultImageUrl = this.products.urldefault; // URL gambar default
+  defaultImageUrl = this.products.urldefault; 
 
   kategoriAktif: string = "Semua";
   tipeFilter: string = "";

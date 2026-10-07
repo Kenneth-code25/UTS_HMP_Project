@@ -84,7 +84,7 @@ export class Transaksi {
 
   
 
-  // ===== Perhitungan checkout (dulu ada di transaksi.page) =====
+ 
   getTotalBarang(items: any[]): number {
     return items.reduce((t, i) => t + (Number(i.jumlah) || 0), 0);
   }
@@ -97,9 +97,9 @@ export class Transaksi {
     return this.getTotalHarga(items) + this.biayaAplikasi;
   }
 
-  // ===== Proses bayar (dulu bayar() di transaksi.page) =====
+ 
   bayar(items: any[]): any {
-    // samakan field dengan format service (harga, totalHarga)
+    
     const itemsSiap = items.map(i => {
       const harga = Number(i.hargaSatuan ?? i.harga) || 0;
       const jumlah = Number(i.jumlah) || 0;

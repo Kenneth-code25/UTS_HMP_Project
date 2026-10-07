@@ -9,7 +9,7 @@
 
 <ion-content class="bg-gray" [fullscreen]="true">
 
-  <!-- TAMPILAN JIKA KERANJANG KOSONG -->
+
   <div class="keranjang-kosong" *ngIf="arrayKeranjang.length === 0">
     <div class="icon-kosong">
       <ion-icon name="cart-outline"></ion-icon>
@@ -21,27 +21,26 @@
     </ion-button>
   </div>
 
-  <!-- TAMPILAN JIKA KERANJANG ADA ISINYA -->
   <div *ngIf="arrayKeranjang.length > 0">
     <div class="card-item" *ngFor="let item of arrayKeranjang">
 
       <div class="produk-main">
-        <!-- Checkbox Kiri -->
+      
         <ion-checkbox [(ngModel)]="item.selected" color="success" (ionChange)="hitungTotal()"></ion-checkbox>
 
-        <!-- Gambar Produk -->
+      
         <div class="gambar-container">
           <img [src]="item.url || 'assets/default.png'" alt="Produk" />
         </div>
 
-        <!-- Detail Produk (Tengah) -->
+        
         <div class="detail-produk">
           <h2 class="nama-barang">{{ item.nama }}</h2>
           <p class="kategori-barang">{{ item.kategori }}</p>
           <p class="harga-barang">Rp{{ item.hargaSatuan | number:'1.0-0' }}</p>
         </div>
 
-        <!-- Kontrol Jumlah & Tong Sampah -->
+       
         <div class="kontrol-kuantitas">
           <ion-button fill="clear" color="medium" class="btn-hapus" (click)="hapusItem(item)">
             <ion-icon name="trash-outline"></ion-icon>
@@ -62,7 +61,6 @@
   </div>
 </ion-content>
 
-<!-- BAGIAN BAWAH (FOOTER) HANYA MUNCUL KALAU KERANJANG ADA ISINYA -->
 <ion-footer class="ion-no-border" *ngIf="arrayKeranjang.length > 0">
   <ion-toolbar class="footer-checkout">
     <div class="checkout-container">
