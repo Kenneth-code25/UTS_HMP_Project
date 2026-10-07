@@ -37,6 +37,9 @@ plus(){
      this.isDisabledMinus = false;
 }
 tambahKeranjang() {
+  if (!this.produks.url) {
+    this.produks.url = this.defaultImageUrl;
+  }
   this.keranjang.tambahKeKeranjang(
     this.produks,
     this.buyAmount

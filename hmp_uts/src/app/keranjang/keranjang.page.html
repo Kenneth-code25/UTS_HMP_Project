@@ -1,33 +1,101 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-     <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>keranjang</ion-title>
+    <ion-title>Keranjang</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">keranjang</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-list>
+<ion-content class="bg-gray" [fullscreen]="true">
 
-    <ion-item *ngFor="let item of arrayKeranjang">
+  <!-- TAMPILAN JIKA KERANJANG KOSONG -->
+  <div class="keranjang-kosong" *ngIf="arrayKeranjang.length === 0">
+    <div class="icon-kosong">
+      <ion-icon name="cart-outline"></ion-icon>
+    </div>
+    <h2>Keranjangmu kosong</h2>
+    <p>Belum ada makanan yang ditambahkan.</p>
+    <ion-button routerLink="/produk" color="success">
+      Mulai Belanja
+    </ion-button>
+  </div>
 
-      <ion-label>
-        <h2>{{ item.nama }}</h2>
+  <!-- TAMPILAN JIKA KERANJANG ADA ISINYA -->
+  <div *ngIf="arrayKeranjang.length > 0">
+    <div class="card-item" *ngFor="let item of arrayKeranjang">
 
-        <p>Kategori: {{ item.kategori }}</p>
+      <div class="produk-main">
+        <!-- Checkbox Kiri -->
+        <ion-checkbox [(ngModel)]="item.selected" color="success" (ionChange)="hitungTotal()"></ion-checkbox>
 
-        <p>Jumlah: {{ item.jumlah }}</p>
+        <!-- Gambar Produk -->
+        <div class="gambar-container">
+          <img [src]="item.url || 'assets/default.png'" alt="Produk" />
+        </div>
 
-        <p>Total Harga: Rp{{ item.totalHarga }}</p>
-      </ion-label>
+        <!-- Detail Produk (Tengah) -->
+        <div class="detail-produk">
+          <h2 class="nama-barang">{{ item.nama }}</h2>
+          <p class="kategori-barang">{{ item.kategori }}</p>
+          <p class="harga-barang">Rp{{ item.hargaSatuan | number:'1.0-0' }}</p>
+        </div>
 
-    </ion-item>
+        <!-- Kontrol Jumlah & Tong Sampah -->
+        <div class="kontrol-kuantitas">
+          <ion-button fill="clear" color="medium" class="btn-hapus" (click)="hapusItem(item)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
 
-  </ion-list>
+          <div class="grup-counter">
+            <ion-button fill="clear" size="small" (click)="kurangJumlah(item)" [disabled]="item.jumlah <= 1">
+              <ion-icon name="remove"></ion-icon>
+            </ion-button>
+            <span class="nilai-jumlah">{{ item.jumlah }}</span>
+            <ion-button fill="clear" size="small" (click)="tambahJumlah(item)">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
+
+<!-- BAGIAN BAWAH (FOOTER) HANYA MUNCUL KALAU KERANJANG ADA ISINYA -->
+<ion-footer class="ion-no-border" *ngIf="arrayKeranjang.length > 0">
+  <ion-toolbar class="footer-checkout">
+    <div class="checkout-container">
+      <div class="pilih-semua">
+        <ion-checkbox [(ngModel)]="isPilihSemua" color="success" (ionChange)="pilihSemuaBarang()"></ion-checkbox>
+        <ion-label>Semua</ion-label>
+
+        <ion-button *ngIf="isPilihSemua" fill="clear" color="danger" size="small" class="btn-hapus-semua"
+          (click)="isAlertHapusOpen = true">
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          Hapus
+        </ion-button>
+
+        <ion-alert 
+        [isOpen]="isAlertHapusOpen" 
+        header="Hapus Barang"
+        message="Hapus semua barang yang dipilih dari keranjang?" 
+        [buttons]="[
+          { text: 'Batal', role: 'cancel' },
+          { text: 'Hapus', role: 'confirm' } ]"
+        (didDismiss)="isAlertHapusOpen = false; $event.detail.role === 'confirm' && hapusTerpilih()">
+        </ion-alert>
+      </div>
+
+      <div class="ringkasan-kanan">
+        <div class="info-total">
+          <span class="label-total">Total Harga</span>
+          <span class="nilai-total">Rp{{ totalBelanja | number:'1.0-0' }}</span>
+        </div>
+        <ion-button color="success" class="btn-beli" (click)="prosesBeli()">
+          Beli ({{ totalJumlahBarang }})
+        </ion-button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

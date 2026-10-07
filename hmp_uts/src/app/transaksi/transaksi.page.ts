@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaksi } from '../transaksi';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaksi',
@@ -8,51 +8,49 @@ import { Transaksi } from '../transaksi';
   standalone: false,
 })
 export class TransaksiPage implements OnInit {
+  items: any[] = [];
+  biayaAplikasi = 2000;
+  sudahBayar = false;
+  waktuPesan = new Date();
+  waktuBayar: Date | null = null;
+  noTransaksi = '';
 
-  listTransaksi: any[] = [];
-  selectedTransaksi: any = null;
-  isModalOpen: boolean = false;
-
-  constructor(private transaksiService: Transaksi) { }
+  constructor(private router: Router) {
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    this.items = state?.['items'] ?? [];
+  }
 
   ngOnInit() {
-    this.listTransaksi = this.transaksiService.getTransaksiList();
-  }
 
+  }
   ionViewWillEnter() {
-    this.listTransaksi = this.transaksiService.getTransaksiList();
+    // Kalau halaman di-refresh, data hilang -> balik ke keranjang
+    if (this.items.length === 0) {
+      this.router.navigate(['/keranjang'], { replaceUrl: true });
+    }
   }
 
-  get totalAkumulasiTransaksi(): number {
-    return this.listTransaksi.reduce((acc, t) => acc + (Number(t.totalNominal) || 0), 0);
+  get totalBarang(): number {
+    return this.items.reduce((t, i) => t + i.jumlah, 0);
   }
 
-  get totalBarangTerjual(): number {
-    return this.listTransaksi.reduce((acc, t) => acc + (Number(t.totalItem) || 0), 0);
+  get totalHarga(): number {
+    return this.items.reduce((t, i) => t + i.hargaSatuan * i.jumlah, 0);
   }
 
-  bukaDetail(trx: any) {
-    this.selectedTransaksi = trx;
-    this.isModalOpen = true;
+  get totalBayar(): number {
+    return this.totalHarga + this.biayaAplikasi;
   }
 
-  tutupDetail() {
-    this.isModalOpen = false;
-    this.selectedTransaksi = null;
+  bayar() {
+    this.waktuBayar = new Date();
+    const tgl = this.waktuBayar.toISOString().slice(0, 10).replace(/-/g, '');
+    const acak = Math.floor(1000 + Math.random() * 9000);
+    this.noTransaksi = `TRX-${tgl}-${acak}`;
+    this.sudahBayar = true;
   }
 
-  formatRupiah(nilai: number): string {
-    return 'Rp' + (nilai || 0).toLocaleString('id-ID');
-  }
-
-  formatTanggal(tgl: any): string {
-    const d = new Date(tgl);
-    return d.toLocaleDateString('id-ID', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+  kembaliBelanja() {
+    this.router.navigate(['/'], { replaceUrl: true });
   }
 }

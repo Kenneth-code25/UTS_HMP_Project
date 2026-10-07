@@ -19,6 +19,8 @@ export class Keranjang {
     this.keranjangItems.push({
       nama: produk.name,
       kategori: produk.kategori,
+      url: produk.url,
+      hargaSatuan: produk.hargajual,
       totalHarga: totalHarga,
       jumlah: jumlah
     });

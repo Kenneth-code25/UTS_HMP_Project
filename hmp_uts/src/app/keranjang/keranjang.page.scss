@@ -1,0 +1,229 @@
+// Background halaman
+.bg-gray {
+    --background: #f5f6f9;
+    display: flex;
+    flex-direction: column;
+}
+
+// Desain Kartu Item Produk
+.card-item {
+    background: #ffffff;
+    margin: 12px;
+    border-radius: 12px;
+    padding: 16px 12px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+
+    .produk-main {
+        display: flex;
+        align-items: center;
+        /* Kunci agar semua elemen vertikal sejajar di tengah */
+        gap: 12px;
+
+        ion-checkbox {
+            --size: 20px;
+            margin: 0;
+        }
+
+        .gambar-container {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f0f0f0;
+            flex-shrink: 0;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .detail-produk {
+            flex-grow: 1;
+
+            .nama-barang {
+                font-size: 14px;
+                font-weight: 500;
+                color: #2c2c2c;
+                margin: 0 0 4px 0;
+                line-height: 1.3;
+            }
+
+            .kategori-barang {
+                font-size: 12px;
+                color: #888;
+                margin: 0 0 6px 0;
+            }
+
+            .harga-barang {
+                font-size: 14px;
+                font-weight: 700;
+                color: #1e1e1e;
+                margin: 0;
+                /* Margin bawah dihapus agar pas di tengah */
+            }
+        }
+
+        // Gaya untuk tombol di sebelah kanan
+        .kontrol-kuantitas {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .btn-hapus {
+                height: 28px;
+                --padding-start: 4px;
+                --padding-end: 4px;
+                margin: 0;
+                font-size: 20px;
+            }
+
+            .grup-counter {
+                display: flex;
+                align-items: center;
+                background: #ffffff;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                height: 28px;
+                padding: 0 4px;
+
+                ion-button {
+                    --padding-start: 6px;
+                    --padding-end: 6px;
+                    height: 24px;
+                    margin: 0;
+                    font-size: 14px;
+                    color: #10b981;
+                }
+
+                .nilai-jumlah {
+                    font-size: 14px;
+                    font-weight: 600;
+                    padding: 0 8px;
+                    color: #1f2937;
+                    min-width: 24px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+// Desain Footer Checkout yang Melayang di Bawah
+.footer-checkout {
+    --background: #ffffff;
+    border-top: 1px solid #ededed;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.03);
+
+    .checkout-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 16px;
+    }
+
+    .pilih-semua {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #4b5563;
+
+        ion-checkbox {
+            --size: 20px;
+        }
+    }
+
+    .ringkasan-kanan {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .info-total {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .label-total {
+                font-size: 12px;
+                color: #6b7280;
+            }
+
+            .nilai-total {
+                font-size: 16px;
+                font-weight: 700;
+                color: #111827;
+            }
+        }
+
+        .btn-beli {
+            --border-radius: 8px;
+            --padding-start: 24px;
+            --padding-end: 24px;
+            font-weight: 600;
+            font-size: 14px;
+            height: 40px;
+            margin: 0;
+        }
+    }
+
+    
+   
+}
+// Tampilan Saat Keranjang Kosong (Biar rapi di tengah layar)
+ .keranjang-kosong {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 320px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+
+        .icon-kosong {
+            font-size: 64px;
+            color: #94a3b8;
+            background: #e2e8f0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+
+            ion-icon {
+                font-size: 48px;
+            }
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0 0 6px 0;
+        }
+
+        p {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0 0 24px 0;
+        }
+
+        ion-button {
+            --border-radius: 8px;
+            --padding-start: 24px;
+            --padding-end: 24px;
+            font-weight: 600;
+            font-size: 14px;
+            height: 40px;
+        }
+    }
