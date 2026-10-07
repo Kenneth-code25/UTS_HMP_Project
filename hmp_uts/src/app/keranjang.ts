@@ -31,5 +31,18 @@ export class Keranjang {
   getKeranjang() {
     return this.keranjangItems;
   }
+
+  hapusItemDibayar(itemsDibayar: any[]) {
+  for (let i = this.keranjangItems.length - 1; i >= 0; i--) {
+    if (itemsDibayar.some(d => d.nama === this.keranjangItems[i].nama)) {
+      this.keranjangItems.splice(i, 1);
+    }
+  }
+}
+
+// Kosongkan seluruh keranjang
+clearKeranjang() {
+  this.keranjangItems = [];
+}
 }
 

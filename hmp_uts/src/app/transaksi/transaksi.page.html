@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start" *ngIf="!sudahBayar">
-      <ion-back-button defaultHref="/keranjang"></ion-back-button>
+   <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ sudahBayar ? 'Nota Transaksi' : 'Pembayaran' }}</ion-title>
   </ion-toolbar>
@@ -11,7 +11,6 @@
 
   <!-- ========== TAMPILAN CHECKOUT ========== -->
   <ng-container *ngIf="!sudahBayar">
-
     <div class="kartu">
       <div class="kartu-judul">
         <span>Pesanan</span>
@@ -52,33 +51,33 @@
   </ng-container>
 
   <!-- ========== TAMPILAN NOTA ========== -->
-  <div class="nota" *ngIf="sudahBayar">
+  <div class="nota" *ngIf="sudahBayar && nota">
     <div class="nota-header">
       <div class="centang"><ion-icon name="checkmark"></ion-icon></div>
       <h2>Pembayaran Berhasil</h2>
-      <p class="nominal">Rp{{ totalBayar | number:'1.0-0' }}</p>
+      <p class="nominal">Rp{{ nota.totalNominal | number:'1.0-0' }}</p>
     </div>
 
     <div class="nota-meta">
-      <div class="baris"><span>No. Transaksi</span><span class="tebal">{{ noTransaksi }}</span></div>
-      <div class="baris"><span>Tanggal</span><span class="tebal">{{ waktuBayar | date:'dd MMM yyyy' }}</span></div>
-      <div class="baris"><span>Waktu</span><span class="tebal">{{ waktuBayar | date:'HH:mm:ss' }}</span></div>
+      <div class="baris"><span>No. Transaksi</span><span class="tebal">{{ nota.id }}</span></div>
+      <div class="baris"><span>Tanggal</span><span class="tebal">{{ nota.tanggal | date:'dd MMM yyyy' }}</span></div>
+      <div class="baris"><span>Waktu</span><span class="tebal">{{ nota.tanggal | date:'HH:mm:ss' }}</span></div>
     </div>
 
     <div class="garis putus"></div>
 
-    <div class="nota-item" *ngFor="let item of items">
+    <div class="nota-item" *ngFor="let item of nota.items">
       <div class="baris">
         <span class="tebal">{{ item.nama }}</span>
-        <span class="tebal">Rp{{ item.hargaSatuan * item.jumlah | number:'1.0-0' }}</span>
+        <span class="tebal">Rp{{ item.totalHarga | number:'1.0-0' }}</span>
       </div>
-      <div class="redup">{{ item.jumlah }} x Rp{{ item.hargaSatuan | number:'1.0-0' }}</div>
+      <div class="redup">{{ item.jumlah }} x Rp{{ item.harga | number:'1.0-0' }}</div>
     </div>
 
     <div class="garis putus"></div>
 
     <div class="baris">
-      <span>Total Harga</span>
+      <span>Total Harga ({{ nota.totalItem }} barang)</span>
       <span>Rp{{ totalHarga | number:'1.0-0' }}</span>
     </div>
     <div class="baris">
@@ -88,7 +87,7 @@
     <div class="garis"></div>
     <div class="baris total">
       <span>Total Bayar</span>
-      <span>Rp{{ totalBayar | number:'1.0-0' }}</span>
+      <span>Rp{{ nota.totalNominal | number:'1.0-0' }}</span>
     </div>
 
     <p class="terima-kasih">Terima kasih sudah berbelanja!</p>
@@ -99,13 +98,11 @@
 <!-- FOOTER -->
 <ion-footer class="ion-no-border">
   <ion-toolbar class="footer-bayar">
-    <div class="footer-isi" *ngIf="!sudahBayar">
-      <div class="info-total">
-        <span class="label">Total Belanja</span>
-        <span class="nilai">Rp{{ totalBayar | number:'1.0-0' }}</span>
-      </div>
-      <ion-button color="success" class="btn-bayar" (click)="bayar()">Bayar</ion-button>
-    </div>
+   <div class="footer-isi" *ngIf="!sudahBayar">
+  <ion-button color="success" class="btn-bayar"  style="margin-left: auto;" (click)="isAlertBayarOpen = true">
+    Bayar
+  </ion-button>
+</div>
 
     <div class="footer-isi" *ngIf="sudahBayar">
       <ion-button expand="block" color="success" class="btn-bayar penuh" (click)="kembaliBelanja()">
@@ -114,3 +111,13 @@
     </div>
   </ion-toolbar>
 </ion-footer>
+<ion-alert
+  [isOpen]="isAlertBayarOpen"
+  header="Konfirmasi Pembayaran"
+  [message]="'Bayar sebesar Rp' + (totalBayar | number:'1.0-0') + '?'"
+  [buttons]="[
+    { text: 'Batal', role: 'cancel' },
+    { text: 'Bayar', role: 'confirm' }
+  ]"
+  (didDismiss)="isAlertBayarOpen = false; $event.detail.role === 'confirm' && bayar()">
+</ion-alert>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Transaksi } from '../transaksi';
+import { Keranjang } from '../keranjang';
 
 @Component({
   selector: 'app-transaksi',
@@ -9,48 +11,34 @@ import { Router } from '@angular/router';
 })
 export class TransaksiPage implements OnInit {
   items: any[] = [];
-  biayaAplikasi = 2000;
+  nota: any = null;
   sudahBayar = false;
   waktuPesan = new Date();
-  waktuBayar: Date | null = null;
-  noTransaksi = '';
+  isAlertBayarOpen = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private transaksiService: Transaksi, private keranjangService: Keranjang) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     this.items = state?.['items'] ?? [];
   }
 
   ngOnInit() {
-
-  }
-  ionViewWillEnter() {
-    // Kalau halaman di-refresh, data hilang -> balik ke keranjang
     if (this.items.length === 0) {
       this.router.navigate(['/keranjang'], { replaceUrl: true });
     }
   }
 
-  get totalBarang(): number {
-    return this.items.reduce((t, i) => t + i.jumlah, 0);
-  }
-
-  get totalHarga(): number {
-    return this.items.reduce((t, i) => t + i.hargaSatuan * i.jumlah, 0);
-  }
-
-  get totalBayar(): number {
-    return this.totalHarga + this.biayaAplikasi;
-  }
+  get biayaAplikasi() { return this.transaksiService.biayaAplikasi; }
+  get totalBarang()   { return this.transaksiService.getTotalBarang(this.items); }
+  get totalHarga()    { return this.transaksiService.getTotalHarga(this.items); }
+  get totalBayar()    { return this.transaksiService.getTotalBayar(this.items); }
 
   bayar() {
-    this.waktuBayar = new Date();
-    const tgl = this.waktuBayar.toISOString().slice(0, 10).replace(/-/g, '');
-    const acak = Math.floor(1000 + Math.random() * 9000);
-    this.noTransaksi = `TRX-${tgl}-${acak}`;
+    this.nota = this.transaksiService.bayar(this.items);
+    this.keranjangService.hapusItemDibayar(this.items);
     this.sudahBayar = true;
   }
 
   kembaliBelanja() {
-    this.router.navigate(['/'], { replaceUrl: true });
+    this.router.navigate(['/produk'], { replaceUrl: true });
   }
 }

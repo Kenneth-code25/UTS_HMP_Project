@@ -42,8 +42,11 @@ export class KeranjangPage implements OnInit {
   // Fungsi hapus dari keranjang
   hapusItem(item: any) {
     // Saring array untuk membuang item yang diklik
-    this.arrayKeranjang = this.arrayKeranjang.filter(produk => produk !== item);
-    this.hitungTotal();
+     const index = this.arrayKeranjang.indexOf(item);
+  if (index > -1) {
+    this.arrayKeranjang.splice(index, 1);
+  }
+  this.hitungTotal();
   }
 
   hitungTotal() {
@@ -88,7 +91,11 @@ export class KeranjangPage implements OnInit {
   }
 
   hapusTerpilih() {
-    this.arrayKeranjang = this.arrayKeranjang.filter(item => !item.selected);
-    this.hitungTotal();
+     for (let i = this.arrayKeranjang.length - 1; i >= 0; i--) {
+    if (this.arrayKeranjang[i].selected) {
+      this.arrayKeranjang.splice(i, 1);
+    }
+  }
+  this.hitungTotal();
   }
 }

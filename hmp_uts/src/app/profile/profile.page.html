@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-    <ion-back-button defaultHref="/home"></ion-back-button>
-</ion-buttons>
-    <ion-title>profile</ion-title>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Riwayat Transaksi</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +23,7 @@
         </div>
         <div class="summary-divider"></div>
         <div class="summary-col">
-          <p class="summary-label">Akumulasi Penjualan</p> 
+          <p class="summary-label">Akumulasi Penjualan</p>
           <h3 class="summary-val highlight">{{ formatRupiah(totalAkumulasiTransaksi) }}</h3>
         </div>
       </div>
@@ -101,7 +101,8 @@
           <ion-item *ngFor="let itm of selectedTransaksi.items" class="receipt-item">
             <ion-label>
               <h3>{{ itm.nama }}</h3>
-              <p>{{ itm.kategori }} &bull; {{ itm.jumlah }} x {{ formatRupiah(itm.harga || itm.totalHarga / itm.jumlah) }}</p>
+              <p>{{ itm.kategori }} &bull; {{ itm.jumlah }} x {{ formatRupiah(itm.harga || itm.totalHarga / itm.jumlah)
+                }}</p>
             </ion-label>
             <strong slot="end" class="item-subtotal">{{ formatRupiah(itm.totalHarga) }}</strong>
           </ion-item>
@@ -115,6 +116,14 @@
             <strong>{{ selectedTransaksi.totalItem }} Barang</strong>
           </div>
           <div class="receipt-row total-row">
+            <span>Subtotal:</span>
+            <strong>{{ formatRupiah(selectedTransaksi.subtotal) }}</strong>
+          </div>
+          <div class="receipt-row total-row">
+            <span>Biaya Jasa Aplikasi:</span>
+            <strong>{{ formatRupiah(selectedTransaksi.biayaAplikasi) }}</strong>
+          </div>
+          <div class="receipt-row total-row">
             <span>Total Pembayaran:</span>
             <strong class="receipt-total-val">{{ formatRupiah(selectedTransaksi.totalNominal) }}</strong>
           </div>
@@ -126,5 +135,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
 </ion-content>

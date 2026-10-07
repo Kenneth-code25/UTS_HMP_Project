@@ -135,46 +135,6 @@
     </ion-card-content>
   </ion-card>
 
-  <div class="section-title">
-    <ion-icon name="flash-outline"></ion-icon>
-    <span>Aksi Cepat</span>
-  </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="3">
-        <div class="quick-btn" routerLink="/produk">
-          <div class="quick-btn-icon bg-blue">
-            <ion-icon name="bag-handle-outline"></ion-icon>
-          </div>
-          <span>Katalog</span>
-        </div>
-      </ion-col>
-      <ion-col size="3">
-        <div class="quick-btn" routerLink="/tambahproduk">
-          <div class="quick-btn-icon bg-green">
-            <ion-icon name="add-circle-outline"></ion-icon>
-          </div>
-          <span>Tambah</span>
-        </div>
-      </ion-col>
-      <ion-col size="3">
-        <div class="quick-btn" routerLink="/transaksi">
-          <div class="quick-btn-icon bg-orange">
-            <ion-icon name="receipt-outline"></ion-icon>
-          </div>
-          <span>Transaksi</span>
-        </div>
-      </ion-col>
-      <ion-col size="3">
-        <div class="quick-btn" routerLink="/keranjang">
-          <div class="quick-btn-icon bg-red">
-            <ion-icon name="cart-outline"></ion-icon>
-          </div>
-          <span>Keranjang</span>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 
   <div class="section-title">
     <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
@@ -234,34 +194,5 @@
       </ion-item>
     </ion-list>
   </ion-card>
-
-  <div class="section-title-between">
-    <div class="section-title" style="margin: 0;">
-      <ion-icon name="sparkles-outline"></ion-icon>
-      <span>Cuplikan Produk</span>
-    </div>
-    <ion-button fill="clear" size="small" routerLink="/produk">
-      Lihat Semua
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-button>
-  </div>
-
-  <ion-grid>
-    <ion-row *ngFor="let produk2 of chunkArray(produkTerbaru, 2)">
-      <ion-col size="6" *ngFor="let produk of produk2">
-        <ion-card class="preview-product-card" [routerLink]="['/produkdetail', arrProduk.indexOf(produk)]">
-          <ion-img class="gambar-produk-dashboard" *ngIf="produk.url" [src]="produk.url"></ion-img>
-          <ion-img class="gambar-produk-dashboard" *ngIf="!produk.url" [src]="defaultImageUrl"></ion-img>
-          <ion-card-content class="preview-card-content">
-            <ion-badge [color]="produk.stok === 0 ? 'danger' : (produk.stok <= 5 ? 'warning' : 'success')" class="stock-badge">
-              {{ produk.stok === 0 ? 'Habis' : 'Stok: ' + produk.stok }}
-            </ion-badge>
-            <h4 class="product-name">{{ produk.name }}</h4>
-            <p class="product-price">{{ formatRupiah(produk.hargajual) }}</p>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 
 </ion-content>

@@ -4,28 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class Transaksi {
-  transaksiList: any[] = [
-    {
-      id: 'TRX-20261006-001',
-      tanggal: new Date(),
-      items: [
-        { nama: 'CHEESE BURGER', kategori: 'Makanan', jumlah: 3, harga: 45000, totalHarga: 135000, url: '' },
-        { nama: 'COCA COLA', kategori: 'Minuman', jumlah: 2, harga: 15000, totalHarga: 30000, url: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=850&h=500&fit=crop' }
-      ],
-      totalItem: 5,
-      totalNominal: 165000
-    },
-    {
-      id: 'TRX-20261006-002',
-      tanggal: new Date(),
-      items: [
-        { nama: 'CHEESE BURGER', kategori: 'Makanan', jumlah: 2, harga: 45000, totalHarga: 90000, url: '' },
-        { nama: 'FRENCH FRIES', kategori: 'Makanan', jumlah: 2, harga: 25000, totalHarga: 50000, url: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=850&h=500&fit=crop' }
-      ],
-      totalItem: 4,
-      totalNominal: 140000
-    }
-  ];
+  transaksiList: any[] = [];
+  biayaAplikasi = 2000;
 
   getJumlahTransaksiHariIni(): number {
     const today = new Date().toDateString();
@@ -85,6 +65,8 @@ export class Transaksi {
       tanggal: now,
       items: [...items],
       totalItem: totalItem,
+      biayaAplikasi: this.biayaAplikasi,
+      subtotal: totalNominal - this.biayaAplikasi,
       totalNominal: totalNominal
     };
 
@@ -99,4 +81,39 @@ export class Transaksi {
   getTransaksiDetail(index: number): any {
     return this.transaksiList[index];
   }
+
+  
+
+  // ===== Perhitungan checkout (dulu ada di transaksi.page) =====
+  getTotalBarang(items: any[]): number {
+    return items.reduce((t, i) => t + (Number(i.jumlah) || 0), 0);
+  }
+
+  getTotalHarga(items: any[]): number {
+    return items.reduce((t, i) => t + (Number(i.hargaSatuan ?? i.harga) || 0) * (Number(i.jumlah) || 0), 0);
+  }
+
+  getTotalBayar(items: any[]): number {
+    return this.getTotalHarga(items) + this.biayaAplikasi;
+  }
+
+  // ===== Proses bayar (dulu bayar() di transaksi.page) =====
+  bayar(items: any[]): any {
+    // samakan field dengan format service (harga, totalHarga)
+    const itemsSiap = items.map(i => {
+      const harga = Number(i.hargaSatuan ?? i.harga) || 0;
+      const jumlah = Number(i.jumlah) || 0;
+      return {
+        nama: i.nama,
+        kategori: i.kategori,
+        jumlah,
+        harga,
+        totalHarga: harga * jumlah,
+        url: i.url || ''
+      };
+    });
+
+    return this.tambahTransaksi(itemsSiap, this.getTotalBayar(itemsSiap));
+  }
+
 }
