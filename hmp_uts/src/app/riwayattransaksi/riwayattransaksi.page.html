@@ -73,7 +73,10 @@
     </ion-card>
   </div>
 
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="tutupDetail()">
+  <ion-modal [isOpen]="isModalOpen" 
+  [enterAnimation]="enterAnimation"
+  [leaveAnimation]="leaveAnimation"
+            (didDismiss)="tutupDetail()">
     <ng-template>
       <ion-header>
         <ion-toolbar>

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { addIcons } from 'ionicons';
+import {
+  storefrontOutline, cartOutline, searchOutline, cubeOutline, receiptOutline,
+  moonOutline, personOutline, cardOutline, peopleOutline, schoolOutline,
+} from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-about',
@@ -8,7 +14,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutPage implements OnInit {
 
-  constructor() { }
+  
+constructor() {
+  addIcons({
+    storefrontOutline, cartOutline, searchOutline, cubeOutline, receiptOutline,
+    moonOutline, personOutline, cardOutline, peopleOutline, schoolOutline,
+  });
+}
 
   ngOnInit() {
   }

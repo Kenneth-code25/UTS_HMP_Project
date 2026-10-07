@@ -1,6 +1,5 @@
 // Background halaman
 .bg-gray {
-    --background: #f5f6f9;
     display: flex;
     flex-direction: column;
 }
@@ -208,13 +207,11 @@
         h2 {
             font-size: 18px;
             font-weight: 600;
-            color: #1e293b;
             margin: 0 0 6px 0;
         }
 
         p {
             font-size: 14px;
-            color: #64748b;
             margin: 0 0 24px 0;
         }
 

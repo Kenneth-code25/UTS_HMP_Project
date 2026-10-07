@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Transaksi } from '../transaksi';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-riwayattransaksi',
@@ -13,13 +14,9 @@ export class RiwayattransaksiPage implements OnInit {
   selectedTransaksi: any = null;
   isModalOpen: boolean = false;
 
-  constructor(private transaksiService: Transaksi) { }
+  constructor(private transaksiService: Transaksi, private animationCtrl: AnimationController) { }
 
   ngOnInit() {
-    this.listTransaksi = this.transaksiService.getTransaksiList();
-  }
-
-  ionViewWillEnter() {
     this.listTransaksi = this.transaksiService.getTransaksiList();
   }
 
@@ -55,5 +52,35 @@ export class RiwayattransaksiPage implements OnInit {
       minute: '2-digit'
     });
   }
+
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+    const backdropElement = root?.querySelector('ion-backdrop');
+    const wrapperElement = root?.querySelector('.modal-wrapper');
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(backdropElement || baseEl)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl.create();
+    if (wrapperElement) {
+      wrapperAnimation.addElement(wrapperElement).keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+    }
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(500)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement) => {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
 }
 

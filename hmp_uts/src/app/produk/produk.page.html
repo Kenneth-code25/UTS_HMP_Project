@@ -16,14 +16,6 @@
       <ion-searchbar class="search-produk" slot="end" placeholder="Cari..." [(ngModel)]="searchProduk"
         (ionInput)="filterProduk()"></ion-searchbar>
 
-      <ion-button id="btnChat" size="default" slot="end" fill="clear">
-        <ion-icon name="chatbubble-ellipses-outline" size="large"></ion-icon>
-      </ion-button>
-
-      <ion-alert trigger="btnChat" header="Fitur Chat" message="Chat dengan Gemini/Claude aja, ngapain butuh fitur ini"
-        [buttons]="['OK']">
-      </ion-alert>
-
       <ion-button size="default" slot="end" fill="clear" (click)="cekKeranjang()">
         <ion-icon name="cart-outline" size="large"></ion-icon>
       </ion-button>

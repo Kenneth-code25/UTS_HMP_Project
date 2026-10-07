@@ -27,6 +27,7 @@ defaultImageUrl = this.products.urldefault;
      if (this.produks.stok == 0) this.isDisabledAddToCart = true;
 
      this.buyAmount=0;
+     if(this.buyAmount <= 0) this.isDisabledMinus = true;
   });
 }
   minus(){

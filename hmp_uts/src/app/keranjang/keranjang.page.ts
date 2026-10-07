@@ -4,6 +4,7 @@ import { Products } from '../products';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { customPageTransition } from '../page-animations';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-keranjang',
@@ -17,7 +18,8 @@ export class KeranjangPage implements OnInit {
     private keranjang: Keranjang, 
     private products: Products, // Tambahkan service Products untuk update stok
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private animationCtrl: AnimationController
   ) { }
 
   arrayKeranjang: any[] = [];
