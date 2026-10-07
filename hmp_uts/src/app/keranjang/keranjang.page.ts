@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Keranjang } from '../keranjang';
 import { Products } from '../products';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { customPageTransition } from '../page-animations';
 
 @Component({
   selector: 'app-keranjang',
@@ -14,7 +16,8 @@ export class KeranjangPage implements OnInit {
   constructor(
     private keranjang: Keranjang, 
     private products: Products, // Tambahkan service Products untuk update stok
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController
   ) { }
 
   arrayKeranjang: any[] = [];
@@ -93,7 +96,9 @@ export class KeranjangPage implements OnInit {
     this.keranjang.keranjangItems = this.arrayKeranjang;
     this.hitungTotal();
 
-    this.router.navigate(['/transaksi'], { state: { items } });
+    this.navCtrl.navigateForward('/transaksi', {
+      state: { items },
+      animation: customPageTransition });
   }
 
   pilihSemuaBarang() {
