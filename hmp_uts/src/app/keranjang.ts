@@ -25,8 +25,6 @@ export class Keranjang {
       jumlah: jumlah
     });
 
-    produk.stok -= jumlah;
-
   }
   getKeranjang() {
     return this.keranjangItems;

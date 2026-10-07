@@ -11,6 +11,7 @@ import { Keranjang } from '../keranjang';
 export class ProdukdetailPage implements OnInit {
 index = 0;
 buyAmount = 0;
+sisaStok=0;
 arrProduk : any[] = []
 produks : any;
 isDisabledMinus = true;
@@ -24,6 +25,8 @@ defaultImageUrl = this.products.urldefault;
      this.index = params['index']
      this.produks = this.arrProduk[this.index];
      if (this.produks.stok == 0) this.isDisabledAddToCart = true;
+
+     this.buyAmount=0;
   });
 }
   minus(){

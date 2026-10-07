@@ -53,6 +53,10 @@ const routes: Routes = [
   },  {
     path: 'keranjang',
     loadChildren: () => import('./keranjang/keranjang.module').then( m => m.KeranjangPageModule)
+  },
+  {
+    path: 'riwayattransaksi',
+    loadChildren: () => import('./riwayattransaksi/riwayattransaksi.module').then( m => m.RiwayattransaksiPageModule)
   }
 
 

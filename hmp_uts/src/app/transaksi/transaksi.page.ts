@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Transaksi } from '../transaksi';
 import { Keranjang } from '../keranjang';
+import { Products } from '../products';
 
 @Component({
   selector: 'app-transaksi',
@@ -16,9 +17,10 @@ export class TransaksiPage implements OnInit {
   waktuPesan = new Date();
   isAlertBayarOpen = false;
 
-  constructor(private router: Router, private transaksiService: Transaksi, private keranjangService: Keranjang) {
+  constructor(private router: Router, private transaksiService: Transaksi, private keranjangService: Keranjang,
+    private products: Products) {
     const state = this.router.getCurrentNavigation()?.extras.state;
-    this.items = state?.['items'] ?? [];
+    this.items = [...(state?.['items'] ?? [])];
   }
 
   ngOnInit() {
@@ -28,13 +30,19 @@ export class TransaksiPage implements OnInit {
   }
 
   get biayaAplikasi() { return this.transaksiService.biayaAplikasi; }
-  get totalBarang()   { return this.transaksiService.getTotalBarang(this.items); }
-  get totalHarga()    { return this.transaksiService.getTotalHarga(this.items); }
-  get totalBayar()    { return this.transaksiService.getTotalBayar(this.items); }
+  get totalBarang() { return this.transaksiService.getTotalBarang(this.items); }
+  get totalHarga() { return this.transaksiService.getTotalHarga(this.items); }
+  get totalBayar() { return this.transaksiService.getTotalBayar(this.items); }
 
   bayar() {
     this.nota = this.transaksiService.bayar(this.items);
     this.keranjangService.hapusItemDibayar(this.items);
+    this.items.forEach(i => {
+      const produk = this.products.produk.find((p: any) => p.name === i.nama);
+      if (produk) {
+        produk.stok = Math.max(0, produk.stok - i.jumlah);
+      }
+    });
     this.sudahBayar = true;
   }
 
