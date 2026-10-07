@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Keranjang } from '../keranjang';
+import { Products } from '../products';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-keranjang',
@@ -11,7 +11,12 @@ import { Router } from '@angular/router';
 })
 export class KeranjangPage implements OnInit {
 
-  constructor(private keranjang: Keranjang, private router: Router) { }
+  constructor(
+    private keranjang: Keranjang, 
+    private products: Products, // Tambahkan service Products untuk update stok
+    private router: Router
+  ) { }
+
   arrayKeranjang: any[] = [];
   isPilihSemua: boolean = false;
   totalBelanja: number = 0;
@@ -20,29 +25,36 @@ export class KeranjangPage implements OnInit {
 
   ngOnInit() {
     this.arrayKeranjang = this.keranjang.keranjangItems;
+    this.hitungTotal();
   }
 
   tambahJumlah(item: any) {
     item.jumlah++;
     this.hitungTotal();
-    // Jangan lupa kalikan ulang total harganya berdasarkan harga satuan
-    // item.totalHarga = item.hargaSatuan * item.jumlah; 
   }
 
-  // Fungsi kurang jumlah (tidak boleh di bawah 1)
+  // Fungsi kurang jumlah
   kurangJumlah(item: any) {
     if (item.jumlah > 1) {
       item.jumlah--;
+
+      // Kembalikan 1 stok ke produk
+      const p = this.products.produk.find((prod: any) => prod.name === item.nama);
+      if (p) p.stok++;
+
       this.hitungTotal();
-      // Jangan lupa kalikan ulang total harganya
-      // item.totalHarga = item.hargaSatuan * item.jumlah;
     }
   }
 
   // Fungsi hapus dari keranjang
   hapusItem(item: any) {
+    // Kembalikan seluruh stok barang ini
+    const p = this.products.produk.find((prod: any) => prod.name === item.nama);
+    if (p) p.stok += item.jumlah;
+
     // Saring array untuk membuang item yang diklik
     this.arrayKeranjang = this.arrayKeranjang.filter(produk => produk !== item);
+    this.keranjang.keranjangItems = this.arrayKeranjang;
     this.hitungTotal();
   }
 
@@ -51,14 +63,12 @@ export class KeranjangPage implements OnInit {
     let jumlahItem = 0;
     let semuaTerpilih = true;
 
-    // Kalau keranjang kosong, checkbox 'Semua' harus mati
     if (this.arrayKeranjang.length === 0) {
       semuaTerpilih = false;
     }
 
     this.arrayKeranjang.forEach(item => {
       if (item.selected) {
-        // Ganti hargaSatuan dengan nama variabel hargamu yang sesuai
         total += item.hargaSatuan * item.jumlah;
         jumlahItem += item.jumlah;
       } else {
@@ -68,13 +78,10 @@ export class KeranjangPage implements OnInit {
 
     this.totalBelanja = total;
     this.totalJumlahBarang = jumlahItem;
-
-    // Update checkbox "Semua" di bawah agar sinkron
     this.isPilihSemua = semuaTerpilih;
   }
 
   prosesBeli() {
-
     const items = this.arrayKeranjang.filter(item => item.selected);
     if (items.length === 0) return;
     this.router.navigate(['/transaksi'], { state: { items } });
@@ -88,7 +95,16 @@ export class KeranjangPage implements OnInit {
   }
 
   hapusTerpilih() {
+    // Kembalikan stok untuk barang-barang yang dicentang
+    this.arrayKeranjang.forEach(item => {
+      if (item.selected) {
+        const p = this.products.produk.find((prod: any) => prod.name === item.nama);
+        if (p) p.stok += item.jumlah;
+      }
+    });
+
     this.arrayKeranjang = this.arrayKeranjang.filter(item => !item.selected);
+    this.keranjang.keranjangItems = this.arrayKeranjang;
     this.hitungTotal();
   }
 }

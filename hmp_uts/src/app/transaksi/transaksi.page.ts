@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Transaksi } from '../transaksi';
+import { Keranjang } from '../keranjang';
 
 @Component({
   selector: 'app-transaksi',
@@ -15,16 +17,18 @@ export class TransaksiPage implements OnInit {
   waktuBayar: Date | null = null;
   noTransaksi = '';
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private transaksiService: Transaksi,
+    private keranjangService: Keranjang
+  ) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     this.items = state?.['items'] ?? [];
   }
 
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
   ionViewWillEnter() {
-    // Kalau halaman di-refresh, data hilang -> balik ke keranjang
     if (this.items.length === 0) {
       this.router.navigate(['/keranjang'], { replaceUrl: true });
     }
@@ -44,9 +48,28 @@ export class TransaksiPage implements OnInit {
 
   bayar() {
     this.waktuBayar = new Date();
-    const tgl = this.waktuBayar.toISOString().slice(0, 10).replace(/-/g, '');
-    const acak = Math.floor(1000 + Math.random() * 9000);
-    this.noTransaksi = `TRX-${tgl}-${acak}`;
+    
+    // 1. Format array items sesuai properti yang dibutuhkan modal riwayat
+    const itemsFormatted = this.items.map(item => ({
+      nama: item.nama,
+      kategori: item.kategori || 'Makanan',
+      jumlah: item.jumlah,
+      harga: item.hargaSatuan,
+      totalHarga: item.hargaSatuan * item.jumlah,
+      url: item.url || ''
+    }));
+
+    // 2. Simpan transaksi ke service (otomatis tercatat di Riwayat Transaksi Profile)
+    const newTrx = this.transaksiService.tambahTransaksi(itemsFormatted, this.totalBayar);
+    this.noTransaksi = newTrx.id;
+
+    // 3. Saring item yang sudah dibeli agar keluar dari keranjang
+    if (this.keranjangService.keranjangItems) {
+      this.keranjangService.keranjangItems = this.keranjangService.keranjangItems.filter(
+        k => !this.items.some(i => i.nama === k.nama)
+      );
+    }
+
     this.sudahBayar = true;
   }
 
